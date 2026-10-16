@@ -30,6 +30,25 @@ Gladys before reporting a problem.
 
 In scope: the code of this repository and the Docker image it publishes.
 
+What the integration handles:
+
+- **Secrets**: the user name and the password of a Keenetic user, kept in the
+  configuration of the integration in Gladys (a `secret` field). They are never
+  written to `/data` nor to the logs. The password never travels on the
+  network either: the login answers a one-time challenge of the router with
+  `sha256(challenge + md5(login:realm:password))`. The session cookie lives in
+  memory only.
+- **`/data`**: `keenetic-state.json`, the MAC addresses already seen on the
+  network (for the "Unknown device connected" trigger). Nothing else.
+- **Network**: plain HTTP to the local web interface of the router only (port
+  80 unless set otherwise), one request per refresh interval. No cloud, no
+  other host. The readings (host names, addresses) travel unencrypted on the
+  local network, like the web interface of the router itself.
+- **Commands**: off by default. When allowed, the integration only switches
+  the access points of the guest segment, sets the Internet access rule of a
+  chosen registered device, saves the configuration and reboots the router. A
+  read-only Keenetic user (`tag readonly`) makes the router refuse them all.
+
 Out of scope: Gladys Assistant itself (see its
 [security policy](https://github.com/GladysAssistant/Gladys/security/policy)),
-and the third-party services and devices the integration talks to.
+and the routers and the firmware the integration talks to.

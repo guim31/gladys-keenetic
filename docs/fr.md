@@ -1,67 +1,215 @@
-# Template de démonstration
+# Keenetic
 
-Ceci est la documentation utilisateur de l'intégration. Gladys ré-héberge ce
-fichier et affiche un lien **Documentation** permanent vers lui dans l'écran
-de configuration (dans la langue de l'utilisateur, avec l'anglais en repli) —
-c'est au moment de configurer que l'utilisateur en a le plus besoin. Gardez
-les courtes indications d'accueil dans les blocs `section` du `config_schema`
-du manifest ; mettez ici le pas-à-pas détaillé (captures d'écran, dépannage…).
+Suivez votre routeur **Keenetic** depuis Gladys Assistant : qui est à la maison, la santé du routeur,
+l'état de votre connexion Internet et de son secours 4G / 5G, le Wi-Fi invité. Tout reste sur votre
+réseau local : l'intégration parle au routeur par RCI, l'interface JSON de son interface web, sans
+aucun cloud.
 
-## Ce que vous obtenez
+Développée sans le matériel : vos retours sont les bienvenus, sur
+[les issues du projet](https://github.com/guim31/gladys-keenetic/issues). Cette intégration n'est
+pas affiliée à Keenetic Ltd.
 
-Six appareils de démonstration apparaissent après l'installation : une
-station météo (vraies données Open-Meteo), un interrupteur, une lampe
-variable, une prise connectée avec mesure de puissance, un détecteur de
-mouvement et une caméra.
+## Présentation
+
+- **Présence** : chaque appareil choisi (un téléphone, un portable, un NAS filaire) devient un
+  capteur de présence, présent tant que le routeur le voit en ligne, sur son Wi-Fi, sur un câble ou
+  sur un répéteur mesh.
+- **Routeur** : charge du processeur, mémoire, temps de fonctionnement, version de KeeneticOS,
+  appareils connectés et clients Wi-Fi.
+- **Internet** : si le routeur atteint Internet, la connexion utilisée avec ses débits descendant et
+  montant, et, si le routeur a plusieurs connexions, si celle de secours (modem 4G / 5G, second
+  opérateur) est établie et utilisée.
+- **Scènes** : un appareil inconnu connecté, Internet coupé et rétabli, la bascule sur la connexion
+  de secours et le retour sur la principale.
+- **Commandes, désactivées par défaut** : Wi-Fi invité allumé et éteint, blocage de l'accès Internet
+  d'un appareil (contrôle parental), redémarrage du routeur.
+- **Widgets** : la santé du routeur, et les appareils présents.
+
+## Prérequis
+
+- Un routeur Keenetic (Giga, Ultra, Hopper, Viva, Peak, Titan, Hero, Speedster…) sous KeeneticOS 3
+  ou plus récent. L'intégration a été écrite pour KeeneticOS 4 et 5.
+- Gladys Assistant 5.1 ou plus récent, sur le même réseau local que le routeur.
+- L'adresse **locale** du routeur (ex. `192.168.1.1`). Une adresse KeenDNS ne fonctionne pas : l'accès
+  à distance ne propose pas la connexion de l'interface web locale.
+
+### Créer un utilisateur dédié
+
+Ne donnez pas le compte `admin` à Gladys. Dans l'interface web du routeur, ouvrez **Utilisateurs et
+accès** (Users and access, menu Gestion), ajoutez un utilisateur, par exemple `gladys`, avec un mot
+de passe solide, et ne cochez que **Interface web** (Web interface : ni CLI, ni FTP, ni VPN).
+
+- **Lecture seule** (recommandé si vous n'utilisez pas les commandes) : dans la ligne de commande du
+  routeur (Telnet / SSH, ou la CLI web à `http://<routeur>/a`), ajoutez l'étiquette de lecture seule :
+
+  ```
+  user gladys tag readonly
+  system configuration save
+  ```
+
+  La présence, les mesures et les déclencheurs de scène fonctionnent ; le routeur refuse les
+  commandes.
+
+- **Avec les commandes** : gardez l'utilisateur sans `readonly`, puis cochez **Autoriser les
+  commandes** dans la configuration de l'intégration.
 
 ## Configuration
 
-1. Ouvrez l'onglet **Configuration** de l'intégration.
-2. Renseignez la **latitude** et la **longitude** que la station météo de
-   démonstration doit observer (Paris par défaut), et choisissez votre unité
-   de température. L'**intervalle de rafraîchissement** règle la fréquence
-   de lecture de la station météo et de la puissance de la prise : toutes
-   les 5 minutes par défaut, toutes les minutes au plus.
-3. Enregistrez : les appareils apparaissent dans l'onglet **Découverte**,
-   prêts à être ajoutés.
+Dans Gladys : **Intégrations → Keenetic → Configuration**.
 
-Le réglage **Préférer la connexion locale** pilote la prise de
-démonstration : elle affiche en badge le canal réellement utilisé (local ou
-cloud), avec un point orange quand elle fonctionne en mode dégradé (local
-refusé, bascule cloud).
+| Champ                          | À saisir                                                                                                                             |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Adresse du routeur             | L'adresse IP locale du routeur, avec `:port` si son interface web n'utilise pas le port 80.                                          |
+| Nom d'utilisateur              | L'utilisateur dédié, ex. `gladys`.                                                                                                   |
+| Mot de passe                   | Son mot de passe. Il ne quitte jamais Gladys : seule une réponse à usage unique au défi du routeur circule.                          |
+| Intervalle de rafraîchissement | 10 s, 15 s, 30 s (par défaut) ou 1 minute. Les débits sont des moyennes sur cet intervalle.                                          |
+| Délai de départ (minutes)      | Un appareil qui n'est plus vu compte comme absent après ce délai (5 minutes par défaut, 0 à 60).                                     |
+| Segment invité                 | Vide (par défaut) : le réseau invité du routeur, trouvé automatiquement. Sinon un identifiant de segment comme `Bridge1`.            |
+| Autoriser les commandes        | Désactivé par défaut. Permet aux scènes et au widget de piloter le Wi-Fi invité, de bloquer un appareil et de redémarrer le routeur. |
+| Langue des noms                | La langue des noms d'appareils et de fonctionnalités, fixée quand un appareil est ajouté (français par défaut).                      |
 
-## Actions
+Cliquez ensuite sur **Tester la connexion** : le rapport donne le modèle, la version de KeeneticOS,
+les connexions Internet par priorité, les segments avec leur identifiant, l'état du Wi-Fi invité et
+ce que l'utilisateur ne peut pas lire.
 
-- **Tester le fournisseur météo** — effectue une requête en direct vers
-  Open-Meteo et affiche la température et l'humidité actuelles sous le
-  bouton.
-- **Identifier un appareil** — choisissez un de vos appareils dans la liste
-  et il se signale (la lampe de démonstration « clignote » dans les logs).
+## Appareils
 
-## Scènes
+Ouvrez l'onglet **Découverte** de l'intégration : le routeur vient en premier, puis les appareils de
+sa table des hôtes (les enregistrés d'abord). Ajoutez ceux que vous voulez suivre.
 
-L'intégration ajoute ses propres cartes à l'éditeur de scènes (Gladys 5.1
-ou plus récent), dans la catégorie **Intégrations** :
+### Le routeur
 
-- **Mouvement détecté** (déclencheur) — lance la scène quand un détecteur
-  de démonstration voit bouger quelque chose. Choisissez éventuellement le
-  détecteur et ce qui a bougé (personne, animal) ; laissés vides, toute
-  détection correspond. Les actions suivantes peuvent lire ce qui a bougé
-  avec `{{triggerEvent.data.target}}`.
-- **Identifier un appareil** (action) — fait se signaler l'appareil choisi.
-  Elle indique si l'appareil a pu se signaler, pour que les actions
-  suivantes puissent en dépendre.
+| Fonctionnalité                | Valeurs                                                                                               |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Charge du processeur          | % du processeur.                                                                                      |
+| Mémoire utilisée              | %, comme l'interface web la compte.                                                                   |
+| Temps de fonctionnement       | Heures depuis le dernier démarrage.                                                                   |
+| Version de KeeneticOS         | ex. `4.1.7`.                                                                                          |
+| Internet disponible           | 1 quand le routeur atteint Internet, 0 sinon.                                                         |
+| Connexion utilisée            | Le nom de la connexion qui porte Internet (sa description dans le routeur), Aucune en cas de coupure. |
+| Débit descendant              | Mbit/s sur la connexion utilisée, en moyenne sur l'intervalle de rafraîchissement.                    |
+| Débit montant                 | Mbit/s sur la connexion utilisée.                                                                     |
+| Connexion de secours utilisée | 1 quand Internet passe par une connexion de secours (seulement avec plusieurs connexions).            |
+| Connexion de secours établie  | 1 quand la première connexion de secours est établie, prête à prendre le relais.                      |
+| Clients Wi-Fi                 | Stations sur le Wi-Fi du routeur lui-même (pas sur les répéteurs mesh).                               |
+| Appareils connectés           | Appareils que le routeur voit en ligne.                                                               |
+| Wi-Fi invité activé           | 1 quand le Wi-Fi du segment invité est allumé (seulement avec un segment invité).                     |
 
-## Tableau de bord
+Les connexions Internet sont les interfaces que le routeur utilise pour Internet, selon leur
+priorité dans **Internet → Priorités des connexions** (Connection priorities). Un tunnel VPN utilisé
+pour Internet (WireGuard, OpenVPN, IPsec…) n'est pas une connexion Internet à lui seul, ni un
+secours.
 
-Ajoutez le widget **État de la démo** à un tableau de bord : il affiche en
-direct la température de la station météo et la puissance de la prise du
-bureau, la connexion utilisée par la prise (en orange si dégradée) et la
-position observée. Son bouton **Identifier la lampe** fait se signaler la
-lampe de démonstration.
+Rien n'est un interrupteur : l'état du Wi-Fi invité est en lecture seule, pour qu'un assistant vocal
+ou un appui malencontreux sur le tableau de bord ne coupe jamais un réseau. Les commandes passent par
+les actions de scène et le widget.
+
+### Appareils du réseau (présence)
+
+Chaque appareil ajouté est un capteur de **Présence** : 1 présent, 0 absent. Il est présent tant que
+le routeur le voit en ligne (le « En ligne » de sa liste d'appareils), ou tant qu'il est associé à un
+point d'accès du routeur. Il devient absent une fois le délai de départ écoulé depuis la dernière
+fois qu'il a été vu : un téléphone en veille quitte le Wi-Fi quelques minutes sans quitter la
+maison. Quand le routeur ne peut pas être lu, personne n'est déclaré absent.
+
+## Widgets
+
+- **Routeur Keenetic** : processeur, mémoire, débits descendant et montant, appareils connectés ;
+  Internet avec la connexion utilisée, la connexion de secours (prête, utilisée, coupée), le Wi-Fi
+  invité, le temps de fonctionnement et la version. Avec **Autoriser les commandes**, un bouton
+  **Wi-Fi invité** (son icône montre l'état actuel) et un bouton **Redémarrer**, tous deux avec
+  confirmation.
+- **Appareils présents** : les appareils suivis, présents d'abord, avec le temps depuis leur départ
+  et ceux dont l'accès Internet est bloqué. Son réglage les montre tous ou seulement les présents.
+
+## Déclencheurs de scène
+
+| Déclencheur                         | Quand                                                                           | Filtres et variables                                                                                                                             |
+| ----------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Appareil inconnu connecté           | Une adresse MAC jamais vue est en ligne. La première lecture apprend le réseau. | Filtres : réseau (domestique, invité, autre), connecté par (Wi-Fi, câble). Variables : adresse MAC, adresse IP, nom d'hôte, réseau Wi-Fi (SSID). |
+| Internet coupé                      | Le routeur n'atteint plus Internet, par aucune connexion.                       | Dernière connexion utilisée.                                                                                                                     |
+| Internet rétabli                    | Internet revient.                                                               | Connexion, durée de la coupure (minutes).                                                                                                        |
+| Bascule sur la connexion de secours | La connexion principale a lâché, Internet passe par une connexion de secours.   | Connexion de secours, connexion principale.                                                                                                      |
+| Retour sur la connexion principale  | Le routeur utilise de nouveau sa connexion principale.                          | Connexion principale, temps sur le secours (minutes).                                                                                            |
+
+Une bascule sur le secours n'est pas une coupure d'Internet : « Internet coupé » ne se déclenche que
+quand aucune connexion ne fonctionne.
+
+## Actions de scène
+
+Toutes nécessitent **Autoriser les commandes** et un utilisateur sans `readonly`.
+
+- **Allumer le Wi-Fi invité** / **Éteindre le Wi-Fi invité** : tous les points d'accès du segment
+  invité (2,4 et 5 GHz). Sortie : Wi-Fi invité activé.
+- **Bloquer l'Internet d'un appareil** / **Autoriser l'Internet d'un appareil** : choisissez un
+  appareil du réseau suivi par l'intégration. Le routeur ne peut bloquer qu'un appareil
+  **enregistré** dans sa liste d'appareils : enregistrez-le d'abord dans **Listes des appareils**
+  (Device lists) de l'interface web du routeur. Sortie : accès Internet bloqué.
+- **Redémarrer le routeur Keenetic** : le réseau est coupé deux à trois minutes.
+
+Chaque commande est relue auprès du routeur, et enregistrée dans sa configuration pour survivre à un
+redémarrage.
+
+## Actions de configuration
+
+- **Tester la connexion** : se reconnecte et lit tout, puis donne le rapport décrit dans la section
+  Configuration.
+
+## Exemples de scènes
+
+- **Invités** : quand le mode « Invités » démarre, allumer le Wi-Fi invité ; à 23 h, l'éteindre.
+- **Devoirs** : chaque jour d'école à 21 h, bloquer l'Internet de la tablette des enfants ; à 7 h,
+  l'autoriser de nouveau.
+- **Panne** : sur « Bascule sur la connexion de secours », envoyer un message « Fibre coupée, en 4G
+  pour l'instant » et suspendre les sauvegardes cloud du NAS ; sur « Retour sur la connexion
+  principale », les reprendre.
+- **Intrus** : sur « Appareil inconnu connecté » avec le filtre réseau = domestique, envoyer une
+  notification avec l'adresse MAC et le nom d'hôte.
+- **Personne à la maison** : quand tous les téléphones suivis sont absents, éteindre les lumières et
+  armer l'alarme par une scène de Gladys.
+
+## Usage du réseau
+
+- Une requête groupée vers le routeur par intervalle de rafraîchissement (la charge, les interfaces,
+  la table des hôtes, les associations Wi-Fi, l'état d'Internet et les compteurs des connexions), sur
+  son interface web locale. Aucun quota, aucun cloud, aucune donnée envoyée hors de votre réseau.
+- Une connexion par session : le routeur termine une session après quelques minutes sans usage,
+  l'intégration se reconnecte d'elle-même.
+- L'intégration ne retient sous `/data` que les adresses MAC déjà vues, pour le déclencheur
+  « Appareil inconnu connecté ».
 
 ## Dépannage
 
-L'intégration journalise tout ce qu'elle fait : consultez les logs de
-l'intégration depuis l'interface Gladys (ou `docker logs` sur l'hôte) avec
-`LOG_LEVEL=debug` pour le détail complet.
+- **« le routeur ne répond pas à cette adresse »** : vérifiez l'adresse IP locale, et que Gladys est
+  sur le même réseau.
+- **« pas d'interface web Keenetic ici »** : l'adresse désigne un autre appareil, ou KeenDNS :
+  utilisez l'adresse locale.
+- **« nom d'utilisateur ou mot de passe refusé par le routeur »** : vérifiez-les dans **Utilisateurs
+  et accès** ; l'intégration réessaie toutes les cinq minutes pour ne pas remplir le journal du
+  routeur.
+- **« refusé par le routeur : l'utilisateur n'a pas ce droit »** : l'utilisateur n'a pas le droit sur
+  l'interface web, ou il est en lecture seule et une commande a été demandée.
+- **Enregistrez d'abord cet appareil** : pour bloquer un appareil, enregistrez-le dans les listes
+  d'appareils du routeur.
+- **Un téléphone apparaît absent alors qu'il est à la maison** : augmentez le délai de départ ;
+  certains téléphones endorment leur Wi-Fi longtemps.
+- Plus de détails dans les logs de l'intégration avec `LOG_LEVEL=debug`.
+
+## Limites
+
+- Développée sans le matériel : testée sur de vraies réponses d'un Keenetic Ultra (KeeneticOS 5.1)
+  et sur des réponses reconstruites d'après la documentation de KeeneticOS, pas encore sur un vrai
+  routeur.
+- KeeneticOS 5.2 ajoute des jetons d'accès pour les scripts du routeur ; l'intégration utilise la
+  connexion de l'interface web, pas encore vérifiée sous KeeneticOS 5.2.
+- HTTP simple sur le réseau local (l'interface web du routeur n'a pas de HTTPS local) ; le mot de
+  passe ne circule jamais, mais les lectures oui.
+- Les clients Wi-Fi ne comptent que les stations du routeur lui-même, pas celles des répéteurs mesh
+  (elles sont en ligne dans les appareils connectés).
+- Pas de trafic par appareil, pas de signal du modem 4G / 5G, pas de pilotage des VPN : l'intégration
+  ne change que le Wi-Fi invité, l'accès Internet d'un appareil choisi, et redémarre le routeur.
+
+## Retours
+
+Questions, un modèle qui répond autrement, une idée :
+[github.com/guim31/gladys-keenetic/issues](https://github.com/guim31/gladys-keenetic/issues).

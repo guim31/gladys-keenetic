@@ -1,0 +1,2121 @@
+{
+  "show/version": {
+    "release": "5.01.C.3.0-1",
+    "sandbox": "preview",
+    "title": "5.1.3",
+    "arch": "aarch64",
+    "ndm": {
+      "exact": "0-b73c650e10",
+      "cdate": "31 Jul 2026"
+    },
+    "bsp": {
+      "exact": "0-597f798bc6",
+      "cdate": "31 Jul 2026"
+    },
+    "ndw": {
+      "features": "dual_image,wifi_button,usb_3_conf,usb_3_first,led_control,wifi5ghz,vht2ghz,bf2ghz,mimo5ghz,atf2ghz,atf5ghz,wifi6_5ghz,wifi_ft,wpa3,wsa5ghz,hwnat,hwnat_mib,link_agg,cable_diag",
+      "components": "base,cloudcontrol,corewireless,dhcpd,dns-filter,dns-https,dns-tls,dot1x,easyconfig,exfat,ext,fat,hfsplus,igmp,ip6,l2tp,lang-en,lang-ru,mdns,miniupnpd,mws,nathelper-ftp,nathelper-h323,nathelper-pptp,nathelper-rtsp,nathelper-sip,ndmp,ndns,ntfs,pingcheck,ppe,pppoe,pptp,storage,trafficcontrol,tsmb,usb,usblte,usbmodem,usbnet,usbqmi,webdav,wireguard"
+    },
+    "ndw3": {
+      "version": "5.1.16.6"
+    },
+    "ndw4": {
+      "version": "5.1.C.3.0"
+    },
+    "manufacturer": "Keenetic Ltd.",
+    "vendor": "Keenetic",
+    "series": "KN",
+    "model": "Ultra (KN-1811)",
+    "hw_version": "11188000",
+    "hw_type": "router",
+    "hw_id": "KN-1811",
+    "device": "Ultra",
+    "consent": "EA",
+    "region": "EA",
+    "description": "Keenetic Ultra"
+  },
+  "show/system": {
+    "hostname": "Keenetic_Ultra",
+    "domainname": "lan",
+    "cpuload": 2,
+    "memory": "156044/524288",
+    "swap": "0/0",
+    "memtotal": 524288,
+    "memfree": 297508,
+    "membuffers": 15232,
+    "memcache": 55504,
+    "swaptotal": 0,
+    "swapfree": 0,
+    "uptime": "99961",
+    "conntotal": 32768,
+    "connfree": 32342
+  },
+  "show/interface": {
+    "0": {
+      "id": "GigabitEthernet1/0",
+      "index": 0,
+      "interface-name": "0",
+      "label": "0",
+      "type": "Port",
+      "traits": ["EthernetPort", "GigabitEthernetPort"],
+      "link": "up",
+      "speed": "1000",
+      "duplex": "full",
+      "auto-negotiation": "on",
+      "flow-control": "off",
+      "eee": "off",
+      "cable-diagnostics": false,
+      "admin-only": false,
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "running"
+        }
+      }
+    },
+    "1": {
+      "id": "GigabitEthernet0/0",
+      "index": 0,
+      "interface-name": "1",
+      "label": "1",
+      "type": "Port",
+      "traits": ["EthernetPort", "SwitchPort", "MtkSwitchPort"],
+      "link": "down",
+      "last-change": "99953.282142",
+      "last-overflow": "0",
+      "cable-diagnostics": false,
+      "admin-only": false,
+      "public": false,
+      "link-group": {
+        "supported": true,
+        "group-id": 0,
+        "master": true,
+        "enabled": false
+      },
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "pending"
+        }
+      }
+    },
+    "2": {
+      "id": "GigabitEthernet0/1",
+      "index": 1,
+      "interface-name": "2",
+      "label": "2",
+      "type": "Port",
+      "traits": ["EthernetPort", "SwitchPort", "MtkSwitchPort"],
+      "link": "down",
+      "last-change": "99953.281433",
+      "last-overflow": "0",
+      "cable-diagnostics": false,
+      "admin-only": false,
+      "public": false,
+      "link-group": {
+        "supported": true,
+        "group-id": 0,
+        "enabled": false
+      },
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "pending"
+        }
+      }
+    },
+    "3": {
+      "id": "GigabitEthernet0/2",
+      "index": 2,
+      "interface-name": "3",
+      "label": "3",
+      "type": "Port",
+      "traits": ["EthernetPort", "SwitchPort", "MtkSwitchPort"],
+      "link": "down",
+      "last-change": "99953.280776",
+      "last-overflow": "0",
+      "cable-diagnostics": false,
+      "admin-only": false,
+      "public": false,
+      "link-group": {
+        "supported": true,
+        "group-id": 1,
+        "master": true,
+        "enabled": false
+      },
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "pending"
+        }
+      }
+    },
+    "4": {
+      "id": "GigabitEthernet0/3",
+      "index": 3,
+      "interface-name": "4",
+      "label": "4",
+      "type": "Port",
+      "traits": ["EthernetPort", "SwitchPort", "MtkSwitchPort"],
+      "link": "down",
+      "last-change": "99953.280062",
+      "last-overflow": "0",
+      "cable-diagnostics": false,
+      "admin-only": false,
+      "public": false,
+      "link-group": {
+        "supported": true,
+        "group-id": 1,
+        "enabled": false
+      },
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "pending"
+        }
+      }
+    },
+    "5": {
+      "id": "GigabitEthernet0/4",
+      "index": 4,
+      "interface-name": "5",
+      "label": "5",
+      "type": "Port",
+      "traits": ["EthernetPort", "SwitchPort", "MtkSwitchPort"],
+      "link": "down",
+      "last-change": "99953.279455",
+      "last-overflow": "0",
+      "cable-diagnostics": true,
+      "admin-only": false,
+      "public": false,
+      "link-group": {
+        "supported": false
+      },
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "pending"
+        }
+      }
+    },
+    "GigabitEthernet0": {
+      "id": "GigabitEthernet0",
+      "index": 0,
+      "interface-name": "GigabitEthernet0",
+      "type": "GigabitEthernet",
+      "description": "",
+      "traits": ["Mac", "Switch", "EthernetPort", "MtkSwitch", "MtkGigabitEthernet"],
+      "link": "down",
+      "connected": "no",
+      "state": "up",
+      "mtu": 1500,
+      "tx-queue-length": 2000,
+      "admin-only": false,
+      "port": {
+        "1": {
+          "id": "GigabitEthernet0/0",
+          "index": 0,
+          "interface-name": "1",
+          "label": "1",
+          "type": "Port",
+          "traits": ["EthernetPort", "SwitchPort", "MtkSwitchPort"],
+          "link": "down",
+          "last-change": "99953.281725",
+          "last-overflow": "0",
+          "cable-diagnostics": false,
+          "admin-only": false,
+          "public": false,
+          "link-group": {
+            "supported": true,
+            "group-id": 0,
+            "master": true,
+            "enabled": false
+          }
+        },
+        "2": {
+          "id": "GigabitEthernet0/1",
+          "index": 1,
+          "interface-name": "2",
+          "label": "2",
+          "type": "Port",
+          "traits": ["EthernetPort", "SwitchPort", "MtkSwitchPort"],
+          "link": "down",
+          "last-change": "99953.281018",
+          "last-overflow": "0",
+          "cable-diagnostics": false,
+          "admin-only": false,
+          "public": false,
+          "link-group": {
+            "supported": true,
+            "group-id": 0,
+            "enabled": false
+          }
+        },
+        "3": {
+          "id": "GigabitEthernet0/2",
+          "index": 2,
+          "interface-name": "3",
+          "label": "3",
+          "type": "Port",
+          "traits": ["EthernetPort", "SwitchPort", "MtkSwitchPort"],
+          "link": "down",
+          "last-change": "99953.280355",
+          "last-overflow": "0",
+          "cable-diagnostics": false,
+          "admin-only": false,
+          "public": false,
+          "link-group": {
+            "supported": true,
+            "group-id": 1,
+            "master": true,
+            "enabled": false
+          }
+        },
+        "4": {
+          "id": "GigabitEthernet0/3",
+          "index": 3,
+          "interface-name": "4",
+          "label": "4",
+          "type": "Port",
+          "traits": ["EthernetPort", "SwitchPort", "MtkSwitchPort"],
+          "link": "down",
+          "last-change": "99953.279636",
+          "last-overflow": "0",
+          "cable-diagnostics": false,
+          "admin-only": false,
+          "public": false,
+          "link-group": {
+            "supported": true,
+            "group-id": 1,
+            "enabled": false
+          }
+        },
+        "5": {
+          "id": "GigabitEthernet0/4",
+          "index": 4,
+          "interface-name": "5",
+          "label": "5",
+          "type": "Port",
+          "traits": ["EthernetPort", "SwitchPort", "MtkSwitchPort"],
+          "link": "down",
+          "last-change": "99953.279082",
+          "last-overflow": "0",
+          "cable-diagnostics": true,
+          "admin-only": false,
+          "public": false,
+          "link-group": {
+            "supported": false
+          }
+        }
+      },
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "pending"
+        }
+      }
+    },
+    "GigabitEthernet0/Vlan1": {
+      "id": "GigabitEthernet0/Vlan1",
+      "index": 1,
+      "interface-name": "GigabitEthernet0/Vlan1",
+      "type": "Vlan",
+      "description": "Home VLAN",
+      "traits": ["Mac", "Ethernet", "Ip", "Ip6", "Supplicant", "EthernetIp", "Vlan"],
+      "link": "down",
+      "connected": "no",
+      "state": "up",
+      "mtu": 1500,
+      "tx-queue-length": 0,
+      "admin-only": false,
+      "group": "Bridge0",
+      "usedby": ["Bridge0"],
+      "ipv6": {
+        "addresses": [
+          {
+            "address": "fe80::52ff:20ff:fee5:af57",
+            "prefix-length": 64,
+            "proto": "KERNEL",
+            "valid-lifetime": "infinite"
+          }
+        ]
+      },
+      "mac": "00:00:5e:00:53:01",
+      "auth-type": "none",
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "pending",
+          "ctrl": "pending"
+        }
+      }
+    },
+    "GigabitEthernet0/Vlan2": {
+      "id": "GigabitEthernet0/Vlan2",
+      "index": 2,
+      "interface-name": "GigabitEthernet0/Vlan2",
+      "type": "Vlan",
+      "description": "",
+      "traits": ["Mac", "Ethernet", "Ip", "Ip6", "Supplicant", "EthernetIp", "Vlan"],
+      "link": "down",
+      "connected": "no",
+      "state": "up",
+      "mtu": 1500,
+      "tx-queue-length": 0,
+      "admin-only": false,
+      "group": "Bridge1",
+      "usedby": ["Bridge1"],
+      "ipv6": {
+        "addresses": [
+          {
+            "address": "fe80::50ff:20ff:fee5:af56",
+            "prefix-length": 64,
+            "proto": "KERNEL",
+            "valid-lifetime": "infinite"
+          }
+        ]
+      },
+      "mac": "00:00:5e:00:53:02",
+      "auth-type": "none",
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "pending",
+          "ctrl": "pending"
+        }
+      }
+    },
+    "GigabitEthernet1": {
+      "id": "GigabitEthernet1",
+      "index": 1,
+      "interface-name": "ISP",
+      "type": "GigabitEthernet",
+      "description": "Fibre",
+      "traits": ["Mac", "Ethernet", "Ip", "Ip6", "Supplicant", "EthernetIp", "GigabitEthernet"],
+      "link": "up",
+      "connected": "yes",
+      "state": "up",
+      "mtu": 1500,
+      "tx-queue-length": 2000,
+      "admin-only": false,
+      "address": "192.0.2.1",
+      "mask": "255.255.255.192",
+      "uptime": 97217,
+      "global": true,
+      "defaultgw": false,
+      "priority": 65280,
+      "security-level": "public",
+      "ipv6": {
+        "addresses": [
+          {
+            "address": "fe80::52ff:20ff:fee5:af58",
+            "prefix-length": 64,
+            "proto": "KERNEL",
+            "valid-lifetime": "infinite"
+          }
+        ],
+        "defaultgw": false
+      },
+      "mac": "00:00:5e:00:53:03",
+      "auth-type": "none",
+      "port": {
+        "id": "GigabitEthernet1/0",
+        "index": 0,
+        "interface-name": "0",
+        "label": "0",
+        "type": "Port",
+        "traits": ["EthernetPort", "GigabitEthernetPort"],
+        "link": "up",
+        "speed": "1000",
+        "duplex": "full",
+        "auto-negotiation": "on",
+        "flow-control": "off",
+        "eee": "off",
+        "cable-diagnostics": false,
+        "admin-only": false
+      },
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "running",
+          "ipv4": "running",
+          "ipv6": "pending",
+          "ctrl": "running"
+        }
+      }
+    },
+    "WifiMaster0": {
+      "id": "WifiMaster0",
+      "index": 0,
+      "interface-name": "WifiMaster0",
+      "type": "WifiMaster",
+      "description": "",
+      "traits": ["WifiRadio", "WifiMaster", "MtkWifiMaster"],
+      "link": "up",
+      "connected": "yes",
+      "state": "up",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "hwstate": "on",
+      "bitrate": 288000000,
+      "channel": 8,
+      "bandwidth": "20",
+      "busy-channels": [6, 7, 8, 9, 10],
+      "temperature": 69,
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "running"
+        }
+      }
+    },
+    "WifiMaster0/AccessPoint0": {
+      "id": "WifiMaster0/AccessPoint0",
+      "index": 0,
+      "interface-name": "AccessPoint",
+      "type": "AccessPoint",
+      "description": "Home Wi-Fi",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "up",
+      "connected": "yes",
+      "state": "up",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "group": "Bridge0",
+      "usedby": ["Bridge0"],
+      "ipv6": {
+        "addresses": [
+          {
+            "address": "fe80::52ff:20ff:fee5:af57",
+            "prefix-length": 64,
+            "proto": "KERNEL",
+            "valid-lifetime": "infinite"
+          }
+        ]
+      },
+      "mac": "00:00:5e:00:53:01",
+      "auth-type": "none",
+      "ssid": "Home-Network",
+      "encryption": "wpa2,wpa3",
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "running",
+          "ctrl": "running"
+        }
+      }
+    },
+    "WifiMaster0/AccessPoint1": {
+      "id": "WifiMaster0/AccessPoint1",
+      "index": 1,
+      "interface-name": "WifiMaster0/AccessPoint1",
+      "type": "AccessPoint",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "up",
+      "connected": "yes",
+      "state": "up",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "group": "Bridge1",
+      "usedby": ["Bridge1"],
+      "ipv6": {
+        "addresses": [
+          {
+            "address": "fe80::50ff:20ff:fe95:af57",
+            "prefix-length": 64,
+            "proto": "KERNEL",
+            "valid-lifetime": "infinite"
+          }
+        ]
+      },
+      "mac": "00:00:5e:00:53:04",
+      "auth-type": "none",
+      "ssid": "Home-Guests",
+      "encryption": "wpa2,wpa3",
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "running",
+          "ctrl": "running"
+        }
+      }
+    },
+    "WifiMaster0/AccessPoint2": {
+      "id": "WifiMaster0/AccessPoint2",
+      "index": 2,
+      "interface-name": "WifiMaster0/AccessPoint2",
+      "type": "AccessPoint",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "down",
+      "connected": "no",
+      "state": "down",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "global": false,
+      "security-level": "public",
+      "ipv6": {},
+      "mac": "00:00:5e:00:53:05",
+      "auth-type": "none",
+      "encryption": "",
+      "summary": {
+        "layer": {
+          "conf": "disabled",
+          "link": "disabled",
+          "ipv4": "disabled",
+          "ipv6": "disabled",
+          "ctrl": "disabled"
+        }
+      }
+    },
+    "WifiMaster0/AccessPoint3": {
+      "id": "WifiMaster0/AccessPoint3",
+      "index": 3,
+      "interface-name": "WifiMaster0/AccessPoint3",
+      "type": "AccessPoint",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "down",
+      "connected": "no",
+      "state": "down",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "global": false,
+      "security-level": "private",
+      "ipv6": {},
+      "mac": "00:00:5e:00:53:06",
+      "auth-type": "none",
+      "encryption": "",
+      "summary": {
+        "layer": {
+          "conf": "disabled",
+          "link": "disabled",
+          "ipv4": "disabled",
+          "ipv6": "disabled",
+          "ctrl": "disabled"
+        }
+      }
+    },
+    "WifiMaster0/AccessPoint4": {
+      "id": "WifiMaster0/AccessPoint4",
+      "index": 4,
+      "interface-name": "WifiMaster0/AccessPoint4",
+      "type": "AccessPoint",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "down",
+      "connected": "no",
+      "state": "down",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "global": false,
+      "security-level": "private",
+      "ipv6": {},
+      "mac": "00:00:5e:00:53:07",
+      "auth-type": "none",
+      "encryption": "",
+      "summary": {
+        "layer": {
+          "conf": "disabled",
+          "link": "disabled",
+          "ipv4": "disabled",
+          "ipv6": "disabled",
+          "ctrl": "disabled"
+        }
+      }
+    },
+    "WifiMaster0/AccessPoint5": {
+      "id": "WifiMaster0/AccessPoint5",
+      "index": 5,
+      "interface-name": "WifiMaster0/AccessPoint5",
+      "type": "AccessPoint",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "down",
+      "connected": "no",
+      "state": "down",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "global": false,
+      "security-level": "private",
+      "ipv6": {},
+      "mac": "00:00:5e:00:53:08",
+      "auth-type": "none",
+      "encryption": "",
+      "summary": {
+        "layer": {
+          "conf": "disabled",
+          "link": "disabled",
+          "ipv4": "disabled",
+          "ipv6": "disabled",
+          "ctrl": "disabled"
+        }
+      }
+    },
+    "WifiMaster0/AccessPoint6": {
+      "id": "WifiMaster0/AccessPoint6",
+      "index": 6,
+      "interface-name": "WifiMaster0/AccessPoint6",
+      "type": "AccessPoint",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "down",
+      "connected": "no",
+      "state": "down",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "global": false,
+      "security-level": "private",
+      "ipv6": {},
+      "mac": "00:00:5e:00:53:09",
+      "auth-type": "none",
+      "encryption": "",
+      "summary": {
+        "layer": {
+          "conf": "disabled",
+          "link": "disabled",
+          "ipv4": "disabled",
+          "ipv6": "disabled",
+          "ctrl": "disabled"
+        }
+      }
+    },
+    "WifiMaster0/WifiStation0": {
+      "ap": "00:00:5e:00:53:0a",
+      "id": "WifiMaster0/WifiStation0",
+      "index": 0,
+      "interface-name": "WifiMaster0/WifiStation0",
+      "type": "WifiStation",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "WifiStation",
+        "MtkWifiStation"
+      ],
+      "link": "down",
+      "connected": "no",
+      "state": "down",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "global": false,
+      "security-level": "public",
+      "ipv6": {},
+      "mac": "00:00:5e:00:53:0b",
+      "auth-type": "none",
+      "encryption": "",
+      "summary": {
+        "layer": {
+          "conf": "disabled",
+          "link": "disabled",
+          "ipv4": "disabled",
+          "ipv6": "disabled",
+          "ctrl": "disabled"
+        }
+      }
+    },
+    "WifiMaster1": {
+      "id": "WifiMaster1",
+      "index": 1,
+      "interface-name": "WifiMaster1",
+      "type": "WifiMaster",
+      "description": "",
+      "traits": ["WifiRadio", "WifiMaster", "MtkWifiMaster"],
+      "link": "up",
+      "connected": "yes",
+      "state": "up",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "hwstate": "on",
+      "bitrate": 2401000000,
+      "channel": 149,
+      "bandwidth": "80",
+      "busy-channels": [149, 153, 157, 161],
+      "temperature": 63,
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "running"
+        }
+      }
+    },
+    "WifiMaster1/AccessPoint0": {
+      "id": "WifiMaster1/AccessPoint0",
+      "index": 0,
+      "interface-name": "AccessPoint_5G",
+      "type": "AccessPoint",
+      "description": "Home Wi-Fi 5 GHz",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "up",
+      "connected": "yes",
+      "state": "up",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "group": "Bridge0",
+      "usedby": ["Bridge0"],
+      "ipv6": {
+        "addresses": [
+          {
+            "address": "fe80::52ff:20ff:fee5:af59",
+            "prefix-length": 64,
+            "proto": "KERNEL",
+            "valid-lifetime": "infinite"
+          }
+        ]
+      },
+      "mac": "00:00:5e:00:53:0c",
+      "auth-type": "none",
+      "ssid": "Home-Network",
+      "encryption": "wpa2,wpa3",
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "running",
+          "ctrl": "running"
+        }
+      }
+    },
+    "WifiMaster1/AccessPoint1": {
+      "id": "WifiMaster1/AccessPoint1",
+      "index": 1,
+      "interface-name": "WifiMaster1/AccessPoint1",
+      "type": "AccessPoint",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "up",
+      "connected": "yes",
+      "state": "up",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "group": "Bridge1",
+      "usedby": ["Bridge1"],
+      "ipv6": {
+        "addresses": [
+          {
+            "address": "fe80::50ff:20ff:fe95:af59",
+            "prefix-length": 64,
+            "proto": "KERNEL",
+            "valid-lifetime": "infinite"
+          }
+        ]
+      },
+      "mac": "00:00:5e:00:53:0d",
+      "auth-type": "none",
+      "ssid": "Home-Guests",
+      "encryption": "wpa2,wpa3",
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "running",
+          "ctrl": "running"
+        }
+      }
+    },
+    "WifiMaster1/AccessPoint2": {
+      "id": "WifiMaster1/AccessPoint2",
+      "index": 2,
+      "interface-name": "WifiMaster1/AccessPoint2",
+      "type": "AccessPoint",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "down",
+      "connected": "no",
+      "state": "down",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "global": false,
+      "security-level": "public",
+      "ipv6": {},
+      "mac": "00:00:5e:00:53:0e",
+      "auth-type": "none",
+      "encryption": "",
+      "summary": {
+        "layer": {
+          "conf": "disabled",
+          "link": "disabled",
+          "ipv4": "disabled",
+          "ipv6": "disabled",
+          "ctrl": "disabled"
+        }
+      }
+    },
+    "WifiMaster1/AccessPoint3": {
+      "id": "WifiMaster1/AccessPoint3",
+      "index": 3,
+      "interface-name": "WifiMaster1/AccessPoint3",
+      "type": "AccessPoint",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "down",
+      "connected": "no",
+      "state": "down",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "global": false,
+      "security-level": "private",
+      "ipv6": {},
+      "mac": "00:00:5e:00:53:0f",
+      "auth-type": "none",
+      "encryption": "",
+      "summary": {
+        "layer": {
+          "conf": "disabled",
+          "link": "disabled",
+          "ipv4": "disabled",
+          "ipv6": "disabled",
+          "ctrl": "disabled"
+        }
+      }
+    },
+    "WifiMaster1/AccessPoint4": {
+      "id": "WifiMaster1/AccessPoint4",
+      "index": 4,
+      "interface-name": "WifiMaster1/AccessPoint4",
+      "type": "AccessPoint",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "down",
+      "connected": "no",
+      "state": "down",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "global": false,
+      "security-level": "private",
+      "ipv6": {},
+      "mac": "00:00:5e:00:53:10",
+      "auth-type": "none",
+      "encryption": "",
+      "summary": {
+        "layer": {
+          "conf": "disabled",
+          "link": "disabled",
+          "ipv4": "disabled",
+          "ipv6": "disabled",
+          "ctrl": "disabled"
+        }
+      }
+    },
+    "WifiMaster1/AccessPoint5": {
+      "id": "WifiMaster1/AccessPoint5",
+      "index": 5,
+      "interface-name": "WifiMaster1/AccessPoint5",
+      "type": "AccessPoint",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "down",
+      "connected": "no",
+      "state": "down",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "global": false,
+      "security-level": "private",
+      "ipv6": {},
+      "mac": "00:00:5e:00:53:11",
+      "auth-type": "none",
+      "encryption": "",
+      "summary": {
+        "layer": {
+          "conf": "disabled",
+          "link": "disabled",
+          "ipv4": "disabled",
+          "ipv6": "disabled",
+          "ctrl": "disabled"
+        }
+      }
+    },
+    "WifiMaster1/AccessPoint6": {
+      "id": "WifiMaster1/AccessPoint6",
+      "index": 6,
+      "interface-name": "WifiMaster1/AccessPoint6",
+      "type": "AccessPoint",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "AccessPoint",
+        "MtkAccessPoint"
+      ],
+      "link": "down",
+      "connected": "no",
+      "state": "down",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "global": false,
+      "security-level": "private",
+      "ipv6": {},
+      "mac": "00:00:5e:00:53:12",
+      "auth-type": "none",
+      "encryption": "",
+      "summary": {
+        "layer": {
+          "conf": "disabled",
+          "link": "disabled",
+          "ipv4": "disabled",
+          "ipv6": "disabled",
+          "ctrl": "disabled"
+        }
+      }
+    },
+    "WifiMaster1/WifiStation0": {
+      "ap": "00:00:5e:00:53:0a",
+      "id": "WifiMaster1/WifiStation0",
+      "index": 0,
+      "interface-name": "WifiMaster1/WifiStation0",
+      "type": "WifiStation",
+      "description": "",
+      "traits": [
+        "Wireless",
+        "Mac",
+        "Ethernet",
+        "Ip",
+        "Ip6",
+        "Supplicant",
+        "EthernetIp",
+        "Wifi",
+        "WifiStation",
+        "MtkWifiStation"
+      ],
+      "link": "down",
+      "connected": "no",
+      "state": "down",
+      "mtu": 1500,
+      "tx-queue-length": 1000,
+      "admin-only": false,
+      "global": false,
+      "security-level": "public",
+      "ipv6": {},
+      "mac": "00:00:5e:00:53:13",
+      "auth-type": "none",
+      "encryption": "",
+      "summary": {
+        "layer": {
+          "conf": "disabled",
+          "link": "disabled",
+          "ipv4": "disabled",
+          "ipv6": "disabled",
+          "ctrl": "disabled"
+        }
+      }
+    },
+    "Bridge0": {
+      "id": "Bridge0",
+      "index": 0,
+      "interface-name": "Home",
+      "type": "Bridge",
+      "description": "Home network",
+      "traits": ["Mac", "Ethernet", "Ip", "Ip6", "Supplicant", "EthernetIp", "Bridge"],
+      "link": "up",
+      "connected": "yes",
+      "state": "up",
+      "mtu": 1500,
+      "tx-queue-length": 0,
+      "admin-only": false,
+      "address": "192.0.2.2",
+      "mask": "255.255.255.0",
+      "uptime": 99944,
+      "global": false,
+      "security-level": "private",
+      "ipv6": {
+        "addresses": [
+          {
+            "address": "fd7a:54ca:d135:0:52ff:20ff:fee5:af57",
+            "prefix-length": 64,
+            "proto": "SLAAC",
+            "valid-lifetime": "infinite"
+          },
+          {
+            "address": "fe80::52ff:20ff:fee5:af57",
+            "prefix-length": 64,
+            "proto": "KERNEL",
+            "valid-lifetime": "infinite"
+          }
+        ]
+      },
+      "mac": "00:00:5e:00:53:01",
+      "auth-type": "none",
+      "bridge": {
+        "interface": [
+          {
+            "link": false,
+            "interface": "GigabitEthernet0/Vlan1"
+          },
+          {
+            "link": true,
+            "interface": "WifiMaster0/AccessPoint0"
+          },
+          {
+            "link": true,
+            "interface": "WifiMaster1/AccessPoint0"
+          }
+        ]
+      },
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "running",
+          "ipv4": "running",
+          "ipv6": "running",
+          "ctrl": "running"
+        }
+      }
+    },
+    "Bridge1": {
+      "id": "Bridge1",
+      "index": 1,
+      "interface-name": "Bridge1",
+      "type": "Bridge",
+      "description": "Guest network",
+      "traits": ["Mac", "Ethernet", "Ip", "Ip6", "Supplicant", "EthernetIp", "Bridge"],
+      "link": "up",
+      "connected": "yes",
+      "state": "up",
+      "mtu": 1500,
+      "tx-queue-length": 0,
+      "admin-only": false,
+      "address": "192.0.2.3",
+      "mask": "255.255.255.0",
+      "uptime": 99943,
+      "global": false,
+      "security-level": "protected",
+      "ipv6": {
+        "addresses": [
+          {
+            "address": "fe80::50ff:20ff:fee5:af56",
+            "prefix-length": 64,
+            "proto": "KERNEL",
+            "valid-lifetime": "infinite"
+          }
+        ]
+      },
+      "mac": "00:00:5e:00:53:02",
+      "auth-type": "none",
+      "bridge": {
+        "interface": [
+          {
+            "link": false,
+            "interface": "GigabitEthernet0/Vlan2"
+          },
+          {
+            "link": true,
+            "interface": "WifiMaster1/AccessPoint1"
+          },
+          {
+            "link": true,
+            "interface": "WifiMaster0/AccessPoint1"
+          }
+        ]
+      },
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "running",
+          "ipv4": "running",
+          "ipv6": "disabled",
+          "ctrl": "running"
+        }
+      }
+    },
+    "Wireguard3": {
+      "id": "Wireguard3",
+      "index": 3,
+      "interface-name": "Wireguard3",
+      "type": "Wireguard",
+      "description": "VPN",
+      "traits": ["Ip", "Ip6", "Wireguard"],
+      "link": "up",
+      "connected": "yes",
+      "state": "up",
+      "mtu": 1324,
+      "tx-queue-length": 50,
+      "admin-only": false,
+      "address": "192.0.2.4",
+      "mask": "255.255.255.255",
+      "uptime": 96295,
+      "global": true,
+      "defaultgw": true,
+      "priority": 65502,
+      "security-level": "public",
+      "ipv6": {
+        "defaultgw": false
+      },
+      "wireguard": {
+        "public-key": "<redacted>",
+        "listen-port": 43060,
+        "status": "up",
+        "peer": [
+          {
+            "public-key": "<redacted>",
+            "description": "",
+            "local-port": 43060,
+            "remote-port": 45026,
+            "via": "GigabitEthernet1",
+            "local-endpoint-address": "192.0.2.1",
+            "remote-endpoint-address": "203.0.113.30",
+            "rxbytes": 11192521912,
+            "txbytes": 2320138310,
+            "last-handshake": 21,
+            "online": true,
+            "enabled": true,
+            "fwmark": 268434094
+          }
+        ]
+      },
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "running",
+          "ipv4": "running",
+          "ipv6": "disabled",
+          "ctrl": "running"
+        }
+      }
+    },
+    "Wireguard4": {
+      "id": "Wireguard4",
+      "index": 4,
+      "interface-name": "Wireguard4",
+      "type": "Wireguard",
+      "description": "VPN backup",
+      "traits": ["Ip", "Ip6", "Wireguard"],
+      "link": "up",
+      "connected": "yes",
+      "state": "up",
+      "mtu": 1324,
+      "tx-queue-length": 50,
+      "admin-only": false,
+      "address": "192.0.2.5",
+      "mask": "255.255.255.255",
+      "uptime": 96244,
+      "global": true,
+      "defaultgw": false,
+      "priority": 65470,
+      "security-level": "public",
+      "ipv6": {
+        "defaultgw": false
+      },
+      "wireguard": {
+        "public-key": "<redacted>",
+        "listen-port": 44698,
+        "status": "up",
+        "peer": [
+          {
+            "public-key": "<redacted>",
+            "description": "",
+            "local-port": 44698,
+            "remote-port": 30498,
+            "via": "GigabitEthernet1",
+            "local-endpoint-address": "192.0.2.1",
+            "remote-endpoint-address": "203.0.113.31",
+            "rxbytes": 2466864,
+            "txbytes": 3638425,
+            "last-handshake": 6,
+            "online": true,
+            "enabled": true,
+            "fwmark": 268434096
+          }
+        ]
+      },
+      "summary": {
+        "layer": {
+          "conf": "running",
+          "link": "running",
+          "ipv4": "running",
+          "ipv6": "disabled",
+          "ctrl": "running"
+        }
+      }
+    }
+  },
+  "show/ip/hotspot": {
+    "host": [
+      {
+        "mac": "00:00:5e:00:53:14",
+        "via": "00:00:5e:00:53:14",
+        "ip": "192.0.2.6",
+        "ip6": [],
+        "hostname": "pixel-8",
+        "name": "Alex phone",
+        "mws-backhaul": false,
+        "interface": {
+          "id": "Bridge0",
+          "name": "Home",
+          "description": "Home network"
+        },
+        "dhcp": {
+          "expires": 15199
+        },
+        "registered": true,
+        "access": "permit",
+        "schedule": "",
+        "policy": "",
+        "priority": 6,
+        "active": true,
+        "rxbytes": 5327156,
+        "txbytes": 51607519,
+        "link": "up",
+        "ssid": "Home-Network",
+        "ap": "WifiMaster0/AccessPoint0",
+        "psm": false,
+        "mld": false,
+        "authenticated": true,
+        "txrate": 78,
+        "ht": 20,
+        "mode": "11n",
+        "gi": 800,
+        "rssi": -46,
+        "mcs": 8,
+        "txss": 1,
+        "ebf": false,
+        "_11": ["v"],
+        "security": "wpa2-psk",
+        "uptime": 95126,
+        "first-seen": 99915,
+        "last-seen": 4,
+        "traffic-shape": {
+          "rx": 0,
+          "tx": 0,
+          "mode": "mac",
+          "schedule": ""
+        }
+      },
+      {
+        "mac": "00:00:5e:00:53:15",
+        "via": "00:00:5e:00:53:15",
+        "ip": "192.0.2.7",
+        "ip6": [],
+        "hostname": "iphone",
+        "name": "",
+        "mws-backhaul": false,
+        "interface": {
+          "id": "Bridge0",
+          "name": "Home",
+          "description": "Home network"
+        },
+        "dhcp": {
+          "expires": 15339
+        },
+        "registered": false,
+        "access": "permit",
+        "schedule": "",
+        "policy": "",
+        "priority": 6,
+        "active": true,
+        "rxbytes": 0,
+        "txbytes": 0,
+        "link": "up",
+        "ssid": "Home-Network",
+        "ap": "WifiMaster1/AccessPoint0",
+        "psm": true,
+        "mld": false,
+        "authenticated": true,
+        "txrate": 540,
+        "ht": 80,
+        "mode": "11ax",
+        "gi": 800,
+        "rssi": -77,
+        "mcs": 10,
+        "txss": 1,
+        "ebf": true,
+        "dl-ofdma": true,
+        "_11": ["k", "r", "v"],
+        "roam": "ft",
+        "pmf": true,
+        "security": "wpa3-psk",
+        "uptime": 9469,
+        "first-seen": 99881,
+        "last-seen": 4,
+        "traffic-shape": {
+          "rx": 0,
+          "tx": 0,
+          "mode": "mac",
+          "schedule": ""
+        }
+      },
+      {
+        "mac": "00:00:5e:00:53:16",
+        "via": "00:00:5e:00:53:16",
+        "ip": "192.0.2.8",
+        "ip6": ["fd7a:54ca:d135:0:d:e15b:7ac9:94cf"],
+        "hostname": "android-tv",
+        "name": "",
+        "mws-backhaul": false,
+        "interface": {
+          "id": "Bridge0",
+          "name": "Home",
+          "description": "Home network"
+        },
+        "dhcp": {
+          "expires": 15397
+        },
+        "registered": false,
+        "access": "permit",
+        "schedule": "",
+        "policy": "",
+        "priority": 6,
+        "active": true,
+        "rxbytes": 0,
+        "txbytes": 0,
+        "link": "up",
+        "ssid": "Home-Network",
+        "ap": "WifiMaster1/AccessPoint0",
+        "psm": true,
+        "mld": false,
+        "authenticated": true,
+        "txrate": 432,
+        "ht": 80,
+        "mode": "11ax",
+        "gi": 800,
+        "rssi": -76,
+        "mcs": 4,
+        "txss": 2,
+        "ebf": true,
+        "dl-ofdma": true,
+        "_11": ["k", "r", "v"],
+        "pmf": true,
+        "security": "wpa3-psk",
+        "uptime": 9416,
+        "first-seen": 98617,
+        "last-seen": 4,
+        "traffic-shape": {
+          "rx": 0,
+          "tx": 0,
+          "mode": "mac",
+          "schedule": ""
+        }
+      },
+      {
+        "mac": "00:00:5e:00:53:17",
+        "via": "00:00:5e:00:53:17",
+        "ip": "192.0.2.9",
+        "ip6": [],
+        "hostname": "",
+        "name": "Thermostat",
+        "mws-backhaul": false,
+        "interface": {
+          "id": "Bridge0",
+          "name": "Home",
+          "description": "Home network"
+        },
+        "dhcp": {
+          "expires": 18406
+        },
+        "registered": true,
+        "access": "permit",
+        "schedule": "",
+        "policy": "",
+        "priority": 6,
+        "active": true,
+        "rxbytes": 7730455313,
+        "txbytes": 30389676,
+        "link": "up",
+        "ssid": "Home-Network",
+        "ap": "WifiMaster1/AccessPoint0",
+        "psm": false,
+        "mld": false,
+        "authenticated": true,
+        "txrate": 867,
+        "ht": 80,
+        "mode": "11ac",
+        "gi": 400,
+        "rssi": -59,
+        "mcs": 9,
+        "txss": 2,
+        "ebf": true,
+        "dl-mu": true,
+        "_11": ["k", "v"],
+        "pmf": true,
+        "security": "wpa3-psk",
+        "uptime": 42836,
+        "first-seen": 95004,
+        "last-seen": 4,
+        "traffic-shape": {
+          "rx": 0,
+          "tx": 0,
+          "mode": "mac",
+          "schedule": ""
+        },
+        "ssdp": {
+          "manufacturer": "Philips",
+          "model": "Philips TV DMR",
+          "model-desc": "UPnP Media Renderer 1.0",
+          "model-numb": "2k15MTK",
+          "name": "Living room TV",
+          "serial": "12345",
+          "type": "urn:schemas-upnp-org:device:MediaRenderer:1"
+        }
+      },
+      {
+        "mac": "00:00:5e:00:53:18",
+        "via": "00:00:5e:00:53:18",
+        "ip": "192.0.2.10",
+        "ip6": ["fd7a:54ca:d135:0:1caf:ec3e:34ee:ed9b"],
+        "hostname": "iphone",
+        "name": "Sam phone",
+        "mws-backhaul": false,
+        "interface": {
+          "id": "Bridge0",
+          "name": "Home",
+          "description": "Home network"
+        },
+        "dhcp": {
+          "expires": 18805
+        },
+        "registered": true,
+        "access": "permit",
+        "schedule": "",
+        "policy": "",
+        "priority": 6,
+        "active": true,
+        "rxbytes": 3312592457,
+        "txbytes": 571111782,
+        "link": "up",
+        "ssid": "Home-Network",
+        "ap": "WifiMaster1/AccessPoint0",
+        "psm": false,
+        "mld": false,
+        "authenticated": true,
+        "txrate": 960,
+        "ht": 80,
+        "mode": "11ax",
+        "gi": 800,
+        "rssi": -76,
+        "mcs": 9,
+        "txss": 2,
+        "ebf": true,
+        "dl-mu": true,
+        "ul-mu": true,
+        "dl-ofdma": true,
+        "_11": ["k", "r", "v"],
+        "pmf": true,
+        "security": "wpa3-psk",
+        "uptime": 9331,
+        "first-seen": 99909,
+        "last-seen": 4,
+        "traffic-shape": {
+          "rx": 0,
+          "tx": 0,
+          "mode": "mac",
+          "schedule": ""
+        }
+      },
+      {
+        "mac": "00:00:5e:00:53:19",
+        "via": "00:00:5e:00:53:19",
+        "ip": "192.0.2.11",
+        "ip6": ["fd7a:54ca:d135:0:81c:8b37:804f:2f97"],
+        "hostname": "android-tv",
+        "name": "",
+        "mws-backhaul": false,
+        "interface": {
+          "id": "Bridge0",
+          "name": "Home",
+          "description": "Home network"
+        },
+        "dhcp": {
+          "expires": 20433
+        },
+        "registered": false,
+        "access": "permit",
+        "schedule": "",
+        "policy": "",
+        "priority": 6,
+        "active": true,
+        "rxbytes": 0,
+        "txbytes": 0,
+        "link": "up",
+        "ssid": "Home-Network",
+        "ap": "WifiMaster1/AccessPoint0",
+        "psm": true,
+        "mld": false,
+        "authenticated": true,
+        "txrate": 288,
+        "ht": 80,
+        "mode": "11ax",
+        "gi": 800,
+        "rssi": -79,
+        "mcs": 5,
+        "txss": 1,
+        "ebf": true,
+        "dl-ofdma": true,
+        "_11": ["k", "r", "v"],
+        "pmf": true,
+        "security": "wpa3-psk",
+        "uptime": 4579,
+        "first-seen": 93021,
+        "last-seen": 4,
+        "traffic-shape": {
+          "rx": 0,
+          "tx": 0,
+          "mode": "mac",
+          "schedule": ""
+        }
+      },
+      {
+        "mac": "00:00:5e:00:53:1a",
+        "via": "00:00:5e:00:53:1a",
+        "ip": "192.0.2.12",
+        "ip6": [],
+        "hostname": "macbook-air",
+        "name": "Laptop",
+        "mws-backhaul": false,
+        "interface": {
+          "id": "Bridge0",
+          "name": "Home",
+          "description": "Home network"
+        },
+        "dhcp": {
+          "expires": 24271
+        },
+        "registered": true,
+        "access": "permit",
+        "schedule": "",
+        "policy": "",
+        "priority": 6,
+        "active": true,
+        "rxbytes": 1525114,
+        "txbytes": 1131693,
+        "link": "up",
+        "ssid": "Home-Network",
+        "ap": "WifiMaster0/AccessPoint0",
+        "psm": false,
+        "mld": false,
+        "authenticated": true,
+        "txrate": 65,
+        "ht": 20,
+        "mode": "11n",
+        "gi": 800,
+        "rssi": -37,
+        "mcs": 7,
+        "txss": 1,
+        "ebf": false,
+        "_11": ["k"],
+        "security": "wpa2-psk",
+        "uptime": 929,
+        "first-seen": 99918,
+        "last-seen": 2,
+        "traffic-shape": {
+          "rx": 0,
+          "tx": 0,
+          "mode": "mac",
+          "schedule": ""
+        }
+      },
+      {
+        "mac": "00:00:5e:00:53:1b",
+        "via": "00:00:5e:00:53:1b",
+        "ip": "192.0.2.13",
+        "ip6": ["fd7a:54ca:d135:0:433:ee72:eba2:5e23"],
+        "hostname": "iphone",
+        "name": "",
+        "mws-backhaul": false,
+        "interface": {
+          "id": "Bridge0",
+          "name": "Home",
+          "description": "Home network"
+        },
+        "dhcp": {
+          "expires": 25199
+        },
+        "registered": false,
+        "access": "permit",
+        "schedule": "",
+        "policy": "",
+        "priority": 6,
+        "active": true,
+        "rxbytes": 0,
+        "txbytes": 0,
+        "link": "up",
+        "ssid": "Home-Network",
+        "ap": "WifiMaster1/AccessPoint0",
+        "psm": false,
+        "mld": false,
+        "authenticated": true,
+        "txrate": 1201,
+        "ht": 80,
+        "mode": "11ax",
+        "gi": 800,
+        "rssi": -64,
+        "mcs": 11,
+        "txss": 2,
+        "ebf": true,
+        "dl-ofdma": true,
+        "_11": ["k", "r", "v"],
+        "pmf": true,
+        "security": "wpa3-psk",
+        "uptime": 9818,
+        "first-seen": 99914,
+        "last-seen": 2,
+        "traffic-shape": {
+          "rx": 0,
+          "tx": 0,
+          "mode": "mac",
+          "schedule": ""
+        }
+      },
+      {
+        "mac": "00:00:5e:00:53:1c",
+        "via": "00:00:5e:00:53:1c",
+        "ip": "0.0.0.0",
+        "ip6": [],
+        "hostname": "",
+        "name": "Guest tablet",
+        "mws-backhaul": false,
+        "registered": true,
+        "access": "permit",
+        "schedule": "",
+        "policy": "Policy0",
+        "priority": 6,
+        "active": false,
+        "rxbytes": 0,
+        "txbytes": 0,
+        "ap": "WifiMaster1/AccessPoint1",
+        "ssid": "Home-Guests",
+        "uptime": 0,
+        "traffic-shape": {
+          "rx": 0,
+          "tx": 0,
+          "mode": "mac",
+          "schedule": ""
+        }
+      }
+    ]
+  },
+  "show/associations": {
+    "station": [
+      {
+        "mac": "00:00:5e:00:53:1a",
+        "ap": "WifiMaster0/AccessPoint0",
+        "psm": false,
+        "authenticated": true,
+        "txrate": 65,
+        "rxrate": 72,
+        "uptime": 894,
+        "txbytes": 1997999,
+        "rxbytes": 456930,
+        "ht": 20,
+        "mode": "11n",
+        "gi": 800,
+        "rssi": -37,
+        "mcs": 7,
+        "txss": 1,
+        "ebf": false,
+        "_11": ["k"],
+        "security": "wpa2-psk"
+      },
+      {
+        "mac": "00:00:5e:00:53:14",
+        "ap": "WifiMaster0/AccessPoint0",
+        "psm": false,
+        "authenticated": true,
+        "txrate": 78,
+        "rxrate": 87,
+        "uptime": 82210,
+        "txbytes": 262254309,
+        "rxbytes": 17773055,
+        "ht": 20,
+        "mode": "11n",
+        "gi": 800,
+        "rssi": -46,
+        "mcs": 8,
+        "txss": 1,
+        "ebf": false,
+        "_11": ["v"],
+        "security": "wpa2-psk"
+      },
+      {
+        "mac": "00:00:5e:00:53:15",
+        "ap": "WifiMaster1/AccessPoint0",
+        "psm": true,
+        "authenticated": true,
+        "txrate": 540,
+        "uptime": 9469,
+        "txbytes": 3657859,
+        "rxbytes": 50430526,
+        "ht": 80,
+        "mode": "11ax",
+        "gi": 800,
+        "rssi": -77,
+        "mcs": 10,
+        "txss": 1,
+        "ebf": true,
+        "dl-mu": false,
+        "ul-mu": false,
+        "dl-ofdma": true,
+        "ul-ofdma": false,
+        "_11": ["k", "r", "v"],
+        "roam": "ft",
+        "pmf": true,
+        "security": "wpa3-psk"
+      },
+      {
+        "mac": "00:00:5e:00:53:19",
+        "ap": "WifiMaster1/AccessPoint0",
+        "psm": true,
+        "authenticated": true,
+        "txrate": 288,
+        "uptime": 4579,
+        "txbytes": 19665050,
+        "rxbytes": 1206187506,
+        "ht": 80,
+        "mode": "11ax",
+        "gi": 800,
+        "rssi": -79,
+        "mcs": 5,
+        "txss": 1,
+        "ebf": true,
+        "dl-mu": false,
+        "ul-mu": false,
+        "dl-ofdma": true,
+        "ul-ofdma": false,
+        "_11": ["k", "r", "v"],
+        "pmf": true,
+        "security": "wpa3-psk"
+      },
+      {
+        "mac": "00:00:5e:00:53:16",
+        "ap": "WifiMaster1/AccessPoint0",
+        "psm": true,
+        "authenticated": true,
+        "txrate": 432,
+        "uptime": 9416,
+        "txbytes": 52104280,
+        "rxbytes": 392230000,
+        "ht": 80,
+        "mode": "11ax",
+        "gi": 800,
+        "rssi": -76,
+        "mcs": 4,
+        "txss": 2,
+        "ebf": true,
+        "dl-mu": false,
+        "ul-mu": false,
+        "dl-ofdma": true,
+        "ul-ofdma": false,
+        "_11": ["k", "r", "v"],
+        "pmf": true,
+        "security": "wpa3-psk"
+      },
+      {
+        "mac": "00:00:5e:00:53:1b",
+        "ap": "WifiMaster1/AccessPoint0",
+        "psm": true,
+        "authenticated": true,
+        "txrate": 1201,
+        "uptime": 9430,
+        "txbytes": 30607578,
+        "rxbytes": 50754906,
+        "ht": 80,
+        "mode": "11ax",
+        "gi": 800,
+        "rssi": -64,
+        "mcs": 11,
+        "txss": 2,
+        "ebf": true,
+        "dl-mu": false,
+        "ul-mu": false,
+        "dl-ofdma": true,
+        "ul-ofdma": false,
+        "_11": ["k", "r", "v"],
+        "pmf": true,
+        "security": "wpa3-psk"
+      },
+      {
+        "mac": "00:00:5e:00:53:17",
+        "ap": "WifiMaster1/AccessPoint0",
+        "psm": false,
+        "authenticated": true,
+        "txrate": 867,
+        "uptime": 42836,
+        "txbytes": 2896048,
+        "rxbytes": 5321932,
+        "ht": 80,
+        "mode": "11ac",
+        "gi": 400,
+        "rssi": -59,
+        "mcs": 9,
+        "txss": 2,
+        "ebf": true,
+        "dl-mu": true,
+        "_11": ["k", "v"],
+        "pmf": true,
+        "security": "wpa3-psk"
+      },
+      {
+        "mac": "00:00:5e:00:53:18",
+        "ap": "WifiMaster1/AccessPoint0",
+        "psm": false,
+        "authenticated": true,
+        "txrate": 960,
+        "uptime": 9331,
+        "txbytes": 186887730,
+        "rxbytes": 354852180,
+        "ht": 80,
+        "mode": "11ax",
+        "gi": 800,
+        "rssi": -76,
+        "mcs": 9,
+        "txss": 2,
+        "ebf": true,
+        "dl-mu": true,
+        "ul-mu": true,
+        "dl-ofdma": true,
+        "ul-ofdma": false,
+        "_11": ["k", "r", "v"],
+        "pmf": true,
+        "security": "wpa3-psk"
+      }
+    ]
+  },
+  "show/internet/status": {
+    "checked": "Fri Aug  7 03:54:06 2026",
+    "enabled": true,
+    "reliable": true,
+    "gateway-accessible": true,
+    "dns-accessible": true,
+    "captive-accessible": true,
+    "internet": true,
+    "gateway": {
+      "interface": "Wireguard3",
+      "address": "0.0.0.0",
+      "failures": 0,
+      "accessible": true,
+      "excluded": false
+    },
+    "captive": {
+      "host": "captive.keenetic.ru",
+      "response": "200 (OK)",
+      "location": "",
+      "failures": 0,
+      "resolved": true,
+      "address": "203.0.113.20"
+    }
+  },
+  "ip/hotspot/host": [
+    {
+      "mac": "00:00:5e:00:53:1a",
+      "access": "permit",
+      "permit": true,
+      "conform": true
+    },
+    {
+      "mac": "00:00:5e:00:53:14",
+      "access": "permit",
+      "permit": true,
+      "conform": true
+    },
+    {
+      "mac": "00:00:5e:00:53:1c",
+      "access": "permit",
+      "permit": true,
+      "policy": "Policy0"
+    },
+    {
+      "mac": "00:00:5e:00:53:18",
+      "access": "permit",
+      "permit": true
+    },
+    {
+      "mac": "00:00:5e:00:53:17",
+      "access": "permit",
+      "permit": true,
+      "conform": true
+    }
+  ],
+  "show/identification": {
+    "mac": "00:00:5e:00:53:01",
+    "serial": "S0000000001"
+  },
+  "show/interface/stat": {
+    "GigabitEthernet1": {
+      "rxpackets": 81234567,
+      "rxbytes": 98765432100,
+      "txpackets": 41234567,
+      "txbytes": 12345678900
+    },
+    "Wireguard3": {
+      "rxpackets": 11234567,
+      "rxbytes": 11192521912,
+      "txpackets": 3234567,
+      "txbytes": 2320138310
+    },
+    "Wireguard4": {
+      "rxpackets": 1234,
+      "rxbytes": 456789,
+      "txpackets": 1200,
+      "txbytes": 123456
+    }
+  }
+}
