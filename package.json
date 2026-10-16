@@ -1,6 +1,6 @@
 {
   "name": "gladys-keenetic",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Keenetic routers for Gladys Assistant: presence, router health, Internet and backup link, guest Wi-Fi.",
   "type": "module",

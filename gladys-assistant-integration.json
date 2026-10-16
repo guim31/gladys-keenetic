@@ -8,8 +8,8 @@
     "de": "Keenetic-Router: Anwesenheit deiner Geräte, Router-Zustand, Internet und 4G-Ersatz, Gäste-WLAN.",
     "es": "Routers Keenetic: presencia, estado del router, Internet y respaldo 4G, Wi-Fi de invitados."
   },
-  "version": "1.0.0",
-  "docker_image": "ghcr.io/guim31/gladys-keenetic:1.0.0",
+  "version": "1.0.1",
+  "docker_image": "ghcr.io/guim31/gladys-keenetic:1.0.1",
   "gladys_version": ">=5.1.0",
   "cover_image": "https://raw.githubusercontent.com/guim31/gladys-keenetic/main/cover.png",
   "categories": ["network"],

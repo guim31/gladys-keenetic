@@ -10,6 +10,8 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-16
+
 ### Added
 
 - Keenetic routers on the local network, through RCI (the JSON interface of
@@ -31,4 +33,5 @@ the notes of the version's GitHub Release.
 - Every text in English, French, German and Spanish, and the user guide in the
   four languages.
 
-[Unreleased]: https://github.com/guim31/gladys-keenetic/commits/main
+[Unreleased]: https://github.com/guim31/gladys-keenetic/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/guim31/gladys-keenetic/releases/tag/v1.0.1
