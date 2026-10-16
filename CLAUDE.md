@@ -5,9 +5,10 @@ contributors.
 
 ## What this is
 
-A Gladys Assistant **external integration**: a Node.js service (Node 22+, ESM,
-no build step) that runs in its own sandboxed Docker container and talks to
-Gladys through
+A Gladys Assistant **external integration** for Keenetic routers (presence,
+router health, Internet and backup connection, guest Wi-Fi, over RCI on the
+local network): a Node.js service (Node 22+, ESM, no build step) that runs in
+its own sandboxed Docker container and talks to Gladys through
 [`@gladysassistant/integration-sdk`](https://github.com/GladysAssistant/integration-sdk-js),
 its only runtime dependency. It started from the official JavaScript template.
 
@@ -16,8 +17,8 @@ its only runtime dependency. It started from the official JavaScript template.
 ```bash
 npm install
 npm test                                  # node --test, the built-in runner
-node --test test/devices.test.js          # one file
-node --test --test-name-pattern "plug"    # tests whose name matches
+node --test test/hub.test.js              # one file
+node --test --test-name-pattern "guest"   # tests whose name matches
 npm run lint                              # ESLint
 npm run format:check                      # Prettier, as the CI runs it
 npm run format                            # Prettier, fix in place
@@ -31,16 +32,25 @@ pushing.
 ## Architecture
 
 ```
-index.js                          SDK wiring only: handlers registered before connect()
-src/devices/index.js              registry of the device blueprints + dispatch helpers
-src/devices/<type>.js             one device type per file (buildDevice, onPoll, onSetValue...)
+index.js                          SDK wiring only (src/app.js does the registering)
+src/app.js                        registers every handler on a GladysIntegration or the fake Gladys
+src/config.js                     DEFAULT_CONFIG (mirrors the manifest defaults) + normalization
+src/hub.js                        the reading timer, states, scene events, commands, report
+src/devices.js                    router and client (presence) devices: ids, features, names
+src/presence.js                   devices seen in a reading, departure delay
+src/keenetic/rci.js               RCI session: challenge login, cookie, batches, error statuses
+src/keenetic/client.js            the identity, one reading (one batch), the commands read back
+src/keenetic/model.js             readers of the RCI answers (interfaces, WAN, segments, hosts…)
+src/keenetic/errors.js            error kinds (unreachable, not_keenetic, auth, permission…)
+src/keenetic/http.js              the HTTP request of the client (test seam)
 src/scenes.js                     scene action handlers (manifest `scene_actions`)
 src/widgets.js                    dashboard widget handlers (manifest `widgets`)
-src/config.js                     DEFAULT_CONFIG (mirrors the manifest defaults) + normalization
-src/weather.js                    example driver (Open-Meteo)
+src/texts.js                      the four-language messages of the code
+src/store.js                      /data/keenetic-state.json (MACs already seen)
+scripts/probe.mjs                 read-only probe of a real router (run outside the session)
 gladys-assistant-integration.json manifest: name, config_schema, actions, image...
-docs/en.md, docs/fr.md            user documentation, re-hosted by Gladys (mandatory)
-test/                             node --test, against the SDK's fake Gladys (integration-sdk/testing)
+docs/{en,fr,de,es}.md             user documentation, re-hosted by Gladys, same sections
+test/                             node --test, SDK fake Gladys + test/helpers/fakeKeenetic.js
 .github/scripts/release.mjs       release helpers (manifest bump, changelog), tested in test/
 ```
 
@@ -70,8 +80,10 @@ test/                             node --test, against the SDK's fake Gladys (in
   `type: "provider"`: 5.1.0). `test/manifest.test.js` ties the manifest to the
   code (defaults, action, scene and widget handlers): change both sides
   together.
-- **User-facing text** is bilingual (English and French): action messages,
-  manifest texts, and `docs/en.md` / `docs/fr.md`, kept in sync.
+- **User-facing text** is in four languages (English, French, German with
+  "du", Spanish with "usted"): action messages, manifest texts, widget texts,
+  feature names and `docs/{en,fr,de,es}.md`, kept in sync. `test/i18n.test.js`
+  checks it.
 - **Style.** Prettier formats, ESLint catches mistakes. Comments explain why,
   in English. Tests never touch the network.
 
@@ -233,3 +245,49 @@ long, et sur un « Sie »/« Ihr… » de politesse en allemand. Le store exige 
 - Docs `en`, `fr`, `de`, `es` avec les mêmes sections.
 - Chauffe, ouverture, sécurité : ne rien rendre pilotable « comme un thermostat » ou par un assistant
   vocal quand une erreur serait dangereuse (leçon d'OctoPrint).
+
+## Intégration Keenetic (16/10/2026)
+
+Développée **sans routeur** : `test/fixtures/keenetic/ultra-5.1-wireguard.json` reprend de vraies réponses
+RCI d'un Keenetic Ultra (KeeneticOS 5.1.3) capturées par salatmaster/keenetic-mcp (MIT), réanonymisées ;
+`giga-4.1-pppoe-lte.json` est reconstruit à la main (PPPoE, secours 4G, Wi-Fi invité éteint). Le test réel
+passe par `scripts/probe.mjs` (lecture seule, rapport sans adresse, MAC, nom, SSID, cookie ni mot de
+passe), lancé ailleurs. L'intégration HA officielle `keenetic_ndms2` passe par **telnet** (ndms2_client,
+MIT) : rien à reprendre pour RCI, sinon l'approche de la présence.
+
+- **Connexion de l'interface web** : `GET /auth` → 401 + cookie de session (nom choisi par le routeur) +
+  `X-NDM-Realm` et `X-NDM-Challenge` ; `POST /auth { login, password }` avec
+  `password = sha256(challenge + md5(login:realm:password))`, en hexadécimal minuscule. 200 : le cookie
+  devient une session, qui expire après quelques minutes sans usage (401 sur la requête suivante : une
+  reconnexion, une seule). Un 401 **sans** les deux en-têtes = pas un Keenetic, ou une adresse KeenDNS
+  (l'accès distant n'offre pas ce défi) : erreur `not_keenetic`.
+- **RCI répond 200 même en échec** : l'erreur est un tableau `status` (`{ status: "error", code, ident,
+message }`) n'importe où dans le corps. Une commande mal placée (champ dans la mauvaise branche) répond
+  `{}` **sans erreur et sans rien changer** : chaque commande est relue (`show interface`,
+  `ip/hotspot/host`) et une commande sans effet est une erreur.
+- **Lot** : `POST /rci/` d'un tableau de commandes imbriquées (`{ show: { ip: { hotspot: {} } } }`),
+  réponse dans le même ordre et la même imbrication ; chaque entrée a sa propre erreur (une commande
+  absente de ce KeeneticOS ne perd pas les autres). Une lecture = un seul lot.
+- **Connexions Internet** : les interfaces `global: true`, triées par `priority` décroissante (la bascule
+  de KeeneticOS suit cette priorité). **Exclure les tunnels VPN** (WireGuard, OpenVPN, IPsec… : la capture
+  réelle a un WireGuard `global`, priorité maximale, `defaultgw: true`) et le port qu'un PPPoE utilise
+  (`via`). PPPoE, L2TP et PPTP restent : un FAI peut s'y connecter. Connexion utilisée =
+  `show internet status → gateway.interface` si c'est une connexion Internet, sinon la première établie.
+- **Segments** : `security-level` `private` = domicile (Bridge0), `protected` = invités (Bridge1, le
+  « Guest network » de l'interface). Le Wi-Fi invité = tous les `AccessPoint` dont `group` est ce pont ;
+  commande `interface { name, up: true }` / `{ name, down: true }` puis `system configuration save`.
+- **Blocage d'Internet** : `ip hotspot host { mac, deny: true }` / `{ mac, permit: true }`, relu dans la
+  branche `ip/hotspot/host` (`access`). Le routeur refuse tout réglage d'un hôte **non enregistré** : le
+  vérifier avant (`registered` de `show ip hotspot`) et le dire à l'utilisateur.
+- **Présence** : `active` de `show ip hotspot` (le « En ligne » de l'interface, câble et répéteurs mesh
+  compris), ou une station `authenticated` de `show associations` (stations du routeur seul). Une station
+  non authentifiée (mauvaise clé) n'est pas présente.
+- **`show interface`** contient aussi les ports de switch (clés `"0"`…`"5"`, id `GigabitEthernet1/0`) :
+  ne garder que les entrées dont `id` égale la clé.
+- **Utilisateur en lecture seule** : `user <nom> tag readonly` (étiquette `http` pour l'accès web). Forme
+  exacte du refus d'une commande non vérifiée : 403 et un `status` « denied/read-only » sont tous deux
+  traités comme `permission`.
+- **KeeneticOS 5.2** ajoute des jetons d'accès (`X-NDMA-TKN`) pour l'accès RCI local des scripts
+  (127.0.0.1:79) ; la connexion de l'interface web n'est pas annoncée comme changée, mais rien n'est
+  vérifié sur 5.2.
+- Le routeur n'a pas de HTTPS local : HTTP simple, le mot de passe ne circule jamais.

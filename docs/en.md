@@ -1,61 +1,204 @@
-# Demo Devices Template
+# Keenetic
 
-This is the user documentation of the integration. Gladys re-hosts this file
-and shows a permanent **Documentation** link to it in the Configuration screen
-(in the user's language, with English as the fallback) — it is when
-configuring that the user needs it most. Keep the short onboarding hints in
-the `section` blocks of the manifest `config_schema`; put the long
-step-by-step (screenshots, troubleshooting…) here.
+Follow your **Keenetic** router from Gladys Assistant: who is at home, the health of the router, the
+state of your Internet connection and of its 4G / 5G backup, the guest Wi-Fi. Everything stays on
+your local network: the integration talks to the router through RCI, the JSON interface of its web
+interface, without any cloud.
 
-## What you get
+Developed without the hardware: feedback welcome, on
+[the issues of the project](https://github.com/guim31/gladys-keenetic/issues). This integration is
+not affiliated with Keenetic Ltd.
 
-Six demo devices show up after installation: a weather station (real data
-from Open-Meteo), a switch, a dimmable light, a smart plug with power
-metering, a motion sensor and a camera.
+## Overview
+
+- **Presence**: each device you choose (a phone, a laptop, a wired NAS) becomes a presence sensor,
+  present while the router sees it online, on its Wi-Fi, on a cable or on a mesh extender.
+- **Router**: CPU load, memory, uptime, KeeneticOS version, connected devices and Wi-Fi clients.
+- **Internet**: whether the router reaches the Internet, the connection in use with its download and
+  upload rates, and, if the router has several connections, whether the backup one (4G / 5G modem,
+  second ISP) is up and in use.
+- **Scenes**: an unknown device connected, Internet down and restored, a switch to the backup
+  connection and the return to the main one.
+- **Commands, disabled by default**: guest Wi-Fi on and off, blocking the Internet access of a
+  device (parental control), rebooting the router.
+- **Widgets**: the health of the router, and the devices at home.
+
+## Requirements
+
+- A Keenetic router (Giga, Ultra, Hopper, Viva, Peak, Titan, Hero, Speedster…) with KeeneticOS 3 or
+  later. The integration was written for KeeneticOS 4 and 5.
+- Gladys Assistant 5.1 or later, on the same local network as the router.
+- The **local** address of the router (e.g. `192.168.1.1`). A KeenDNS address does not work: the
+  remote access does not offer the login of the local web interface.
+
+### Create a dedicated user
+
+Do not give Gladys the `admin` account. In the web interface of the router, open **Users and
+access** (Management menu), add a user, e.g. `gladys`, with a strong password, and tick **Web
+interface** only (no CLI, no FTP, no VPN).
+
+- **Read only** (recommended if you do not use the commands): on the command line of the router
+  (Telnet / SSH, or the web CLI at `http://<router>/a`), add the read-only tag:
+
+  ```
+  user gladys tag readonly
+  system configuration save
+  ```
+
+  The presence, the measures and the scene triggers work; the commands are refused by the router.
+
+- **With the commands**: keep the user without `readonly`, then tick **Allow commands** in the
+  configuration of the integration.
 
 ## Configuration
 
-1. Open the **Configuration** tab of the integration.
-2. Set the **latitude** and **longitude** the demo weather station should
-   observe (they default to Paris), and pick your temperature unit.
-   The **refresh interval** sets how often the weather station and the
-   plug's power are read: every 5 minutes by default, every minute at most.
-3. Save: the devices appear in the **Discovery** tab, ready to be added.
+In Gladys: **Integrations → Keenetic → Configuration**.
 
-The **Prefer the local connection** toggle drives the demo plug: it reports
-the channel it actually uses as a badge (local or cloud), with an orange dot
-when it runs degraded (local refused, cloud fallback).
+| Field                     | What to enter                                                                                                    |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Router address            | The local IP address of the router, with `:port` if its web interface does not use port 80.                      |
+| User name                 | The dedicated user, e.g. `gladys`.                                                                               |
+| Password                  | Its password. It never leaves Gladys: only a one-time answer to the challenge of the router travels.             |
+| Refresh interval          | 10 s, 15 s, 30 s (default) or 1 minute. The rates are averages over this interval.                               |
+| Departure delay (minutes) | A device no longer seen counts as away after this delay (5 minutes by default, 0 to 60).                         |
+| Guest segment             | Empty (default): the guest network of the router, found automatically. Otherwise a segment id such as `Bridge1`. |
+| Allow commands            | Off by default. Lets the scenes and the widget switch the guest Wi-Fi, block a device and reboot the router.     |
+| Language of the names     | The language of the device and feature names, set when a device is added (French by default).                    |
 
-## Actions
+Then click **Test the connection**: the report gives the model, the KeeneticOS version, the Internet
+connections by priority, the segments with their id, the state of the guest Wi-Fi and what the user
+may not read.
 
-- **Test the weather provider** — performs a live request to Open-Meteo and
-  shows the current temperature and humidity under the button.
-- **Identify a device** — pick one of your devices in the list and it will
-  signal itself (the demo light "blinks" in the logs).
+## Devices
 
-## Scenes
+Open the **Discovery** tab of the integration: the router comes first, then the devices of its host
+table (the registered ones first). Add the ones you want to follow.
 
-The integration adds its own cards to the scene editor (Gladys 5.1 or
-later), under the **Integrations** category:
+### The router
 
-- **Motion detected** (trigger) — starts the scene when a demo motion sensor
-  sees something move. Optionally pick the sensor and what moved (person,
-  animal); left empty, any detection matches. The following actions can
-  read what moved with `{{triggerEvent.data.target}}`.
-- **Identify a device** (action) — makes the chosen device signal itself.
-  It returns whether the device could signal itself, so the following
-  actions can depend on it.
+| Feature                  | Values                                                                                          |
+| ------------------------ | ----------------------------------------------------------------------------------------------- |
+| CPU load                 | % of the processor.                                                                             |
+| Memory used              | %, as the web interface counts it.                                                              |
+| Uptime                   | Hours since the last start.                                                                     |
+| KeeneticOS version       | e.g. `4.1.7`.                                                                                   |
+| Internet available       | 1 when the router reaches the Internet, 0 when it does not.                                     |
+| Connection in use        | The name of the connection carrying the Internet (its description in the router), None if down. |
+| Download rate            | Mbit/s on the connection in use, averaged over the refresh interval.                            |
+| Upload rate              | Mbit/s on the connection in use.                                                                |
+| Backup connection in use | 1 when the Internet goes through a backup connection (only with several connections).           |
+| Backup connection up     | 1 when the first backup connection is established, ready to take over.                          |
+| Wi-Fi clients            | Stations on the Wi-Fi of the router itself (not on the mesh extenders).                         |
+| Connected devices        | Devices the router sees online.                                                                 |
+| Guest Wi-Fi enabled      | 1 when the Wi-Fi of the guest segment is on (only with a guest segment).                        |
 
-## Dashboard
+The Internet connections are the interfaces the router uses for the Internet, by their priority in
+**Internet → Connection priorities**. A VPN tunnel used for the Internet (WireGuard,
+OpenVPN, IPsec…) is no Internet connection of its own, and no backup.
 
-Add the **Demo status** widget to a dashboard: it shows the live
-temperature of the weather station and the power of the office plug, the
-connection the plug currently uses (orange when degraded) and the observed
-location. Its **Identify the light** button makes the demo light signal
-itself.
+Nothing is a switch: the guest Wi-Fi state is read only, so that a voice assistant or a mistaken
+dashboard tap never cuts a network. The commands go through the scene actions and the widget.
+
+### Network devices (presence)
+
+Each device you add is a **Presence** sensor: 1 when present, 0 when away. It is present while the
+router sees it online (the "Online" of its device list), or while it is associated on an access
+point of the router. It becomes away once the departure delay has passed since it was last seen: a
+phone asleep leaves the Wi-Fi a few minutes without leaving home. When the router cannot be read,
+nobody is sent away.
+
+## Widgets
+
+- **Keenetic router**: CPU, memory, download and upload rates, connected devices; Internet with the
+  connection in use, the backup connection (ready, in use, down), the guest Wi-Fi, the uptime and the
+  version. With **Allow commands**, a **Guest Wi-Fi** button (its icon shows the current state) and
+  a **Reboot** button, both with a confirmation.
+- **Devices at home**: the followed devices, present first, with the time since they left and the
+  ones whose Internet access is blocked. Its setting shows all of them or the present ones only.
+
+## Scene triggers
+
+| Trigger                           | When                                                                             | Filters and variables                                                                                                                    |
+| --------------------------------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Unknown device connected          | A MAC address never seen before is online. The first reading learns the network. | Filters: network (home, guest, other), connected by (Wi-Fi, cable). Variables: MAC address, IP address, host name, Wi-Fi network (SSID). |
+| Internet down                     | The router no longer reaches the Internet, through any connection.               | Last connection used.                                                                                                                    |
+| Internet restored                 | The Internet is back.                                                            | Connection, outage length (minutes).                                                                                                     |
+| Switched to the backup connection | The main connection failed, the Internet goes through a backup one.              | Backup connection, main connection.                                                                                                      |
+| Back on the main connection       | The router uses its main connection again.                                       | Main connection, time on the backup (minutes).                                                                                           |
+
+A switch to the backup is not an Internet outage: "Internet down" fires only when no connection
+works.
+
+## Scene actions
+
+All of them need **Allow commands** and a user without `readonly`.
+
+- **Turn on the guest Wi-Fi** / **Turn off the guest Wi-Fi**: every access point of the guest
+  segment (2.4 and 5 GHz). Output: guest Wi-Fi enabled.
+- **Block the Internet of a device** / **Allow the Internet of a device**: choose a network device
+  followed by the integration. The router can only block a device **registered** in its device list:
+  register it first in **Device lists** of the web interface of the router. Output: Internet access blocked.
+- **Reboot the Keenetic router**: the network is cut for two to three minutes.
+
+Every command is read back from the router, and saved in its configuration so that it survives a
+restart.
+
+## Configuration actions
+
+- **Test the connection**: logs in again and reads everything, then gives the report described in
+  the Configuration section.
+
+## Scene examples
+
+- **Guests**: when the "Guests" mode starts, turn on the guest Wi-Fi; at 23:00, turn it off.
+- **Homework**: every school day at 21:00, block the Internet of the children's tablet; at 7:00,
+  allow it again.
+- **Outage**: on "Switched to the backup connection", send a message "Fibre down, on 4G for now" and
+  pause the cloud backups of the NAS; on "Back on the main connection", resume them.
+- **Intruder**: on "Unknown device connected" with the filter network = home, send a notification
+  with the MAC address and the host name.
+- **Nobody home**: when every followed phone is away, turn off the lights and arm the alarm with a
+  scene of Gladys.
+
+## Network use
+
+- One batch request to the router per refresh interval (the load, the interfaces, the host table,
+  the Wi-Fi associations, the Internet status and the counters of the connections), on its local
+  web interface. No quota, no cloud, no data sent outside your network.
+- One login per session: the router ends a session after a few minutes without use, the integration
+  logs in again by itself.
+- The integration remembers under `/data` only the MAC addresses already seen, for the "Unknown
+  device connected" trigger.
 
 ## Troubleshooting
 
-The integration logs everything it does: check the integration logs from the
-Gladys UI (or `docker logs` on the host) with `LOG_LEVEL=debug` for the full
-detail.
+- **"the router does not answer at this address"**: check the local IP address, and that Gladys is on
+  the same network.
+- **"no Keenetic web interface here"**: the address points to another device, or to KeenDNS: use the
+  local address.
+- **"user name or password refused by the router"**: check them in **Users and access**; the
+  integration tries again every five minutes so as not to fill the log of the router.
+- **"refused by the router: the user lacks this right"**: the user lacks the web interface right, or
+  is read-only and a command was asked.
+- **Register this device first**: to block a device, register it in **Device lists** of the router.
+- **A phone shows away while at home**: raise the departure delay; some phones put their Wi-Fi to
+  sleep for a long time.
+- More details in the logs of the integration with `LOG_LEVEL=debug`.
+
+## Limits
+
+- Developed without the hardware: tested against real answers of a Keenetic Ultra (KeeneticOS 5.1)
+  and answers rebuilt from the documentation of KeeneticOS, not on a real router yet.
+- KeeneticOS 5.2 adds access tokens for scripts on the router; the integration uses the login of the
+  web interface, not verified on KeeneticOS 5.2 yet.
+- Plain HTTP on the local network (the web interface of the router has no local HTTPS); the password
+  never travels, but the readings do.
+- The Wi-Fi clients count only the stations of the router itself, not those of the mesh extenders
+  (they are online in the connected devices).
+- No per-device traffic, no signal of the 4G / 5G modem, no VPN control: the integration only
+  changes the guest Wi-Fi, the Internet access of a chosen device, and reboots the router.
+
+## Feedback
+
+Questions, a model that answers differently, an idea:
+[github.com/guim31/gladys-keenetic/issues](https://github.com/guim31/gladys-keenetic/issues).

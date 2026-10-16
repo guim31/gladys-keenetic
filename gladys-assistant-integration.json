@@ -1,177 +1,831 @@
 {
   "manifest_version": 1,
   "type": "device",
-  "name": "Demo Devices Template",
+  "name": "Keenetic",
   "description": {
-    "en": "Starter template showing sensors, a switch, a dimmable light and a smart plug.",
-    "fr": "Template de démarrage : capteurs, interrupteur, lampe variable et prise connectée."
+    "en": "Keenetic routers: presence of your devices, router health, Internet and 4G backup, guest Wi-Fi.",
+    "fr": "Routeurs Keenetic : présence des appareils, santé du routeur, Internet et secours 4G, Wi-Fi invité.",
+    "de": "Keenetic-Router: Anwesenheit deiner Geräte, Router-Zustand, Internet und 4G-Ersatz, Gäste-WLAN.",
+    "es": "Routers Keenetic: presencia, estado del router, Internet y respaldo 4G, Wi-Fi de invitados."
   },
   "version": "1.0.0",
-  "docker_image": "ghcr.io/gladysassistant/integration-template-js:1.0.0",
+  "docker_image": "ghcr.io/guim31/gladys-keenetic:1.0.0",
   "gladys_version": ">=5.1.0",
-  "cover_image": "https://raw.githubusercontent.com/GladysAssistant/integration-template-js/master/cover.png",
-  "categories": ["lighting", "security", "environment"],
-  "transports": ["local", "cloud"],
+  "cover_image": "https://raw.githubusercontent.com/guim31/gladys-keenetic/main/cover.png",
+  "categories": ["network"],
+  "transports": ["local"],
   "config_schema": [
     {
       "key": "intro",
       "type": "section",
-      "label": { "en": "Getting started", "fr": "Pour commencer" },
+      "label": {
+        "en": "Your Keenetic router",
+        "fr": "Votre routeur Keenetic",
+        "de": "Dein Keenetic-Router",
+        "es": "Su router Keenetic"
+      },
       "description": {
-        "en": "The demo weather station reads real data from the free Open-Meteo API: pick the coordinates to observe. No account, no API key.",
-        "fr": "La station météo de démonstration lit de vraies données via l'API gratuite Open-Meteo : choisissez les coordonnées à observer. Pas de compte, pas de clé d'API."
+        "en": "Any Keenetic with KeeneticOS 3 or later, on its local address. Create a dedicated user with the web interface right only, read only if you do not use the commands (see the documentation).",
+        "fr": "Tout Keenetic sous KeeneticOS 3 ou plus récent, par son adresse locale. Créez un utilisateur dédié avec le seul droit sur l'interface web, en lecture seule si vous n'utilisez pas les commandes (voir la documentation).",
+        "de": "Jeder Keenetic mit KeeneticOS 3 oder neuer, über seine lokale Adresse. Lege einen eigenen Benutzer nur mit dem Recht auf die Weboberfläche an, nur lesend, wenn du die Befehle nicht nutzt (siehe Doku).",
+        "es": "Cualquier Keenetic con KeeneticOS 3 o posterior, por su dirección local. Cree un usuario dedicado solo con el permiso de la interfaz web, de solo lectura si no usa las órdenes (vea la documentación)."
       },
       "links": [
         {
-          "url": "https://open-meteo.com/en/docs",
-          "label": { "en": "Open-Meteo documentation", "fr": "Documentation Open-Meteo" }
+          "url": "https://help.keenetic.com/",
+          "label": {
+            "en": "Keenetic help center",
+            "fr": "Centre d'aide Keenetic",
+            "de": "Keenetic-Hilfecenter",
+            "es": "Centro de ayuda de Keenetic"
+          }
         }
       ]
     },
     {
-      "key": "latitude",
-      "type": "number",
-      "label": { "en": "Latitude", "fr": "Latitude" },
-      "description": {
-        "en": "Latitude used for the demo weather sensor.",
-        "fr": "Latitude utilisée par le capteur météo de démonstration."
+      "key": "host",
+      "type": "string",
+      "label": {
+        "en": "Router address",
+        "fr": "Adresse du routeur",
+        "de": "Adresse des Routers",
+        "es": "Dirección del router"
       },
-      "placeholder": { "en": "e.g. 48.8566", "fr": "ex. 48.8566" },
+      "description": {
+        "en": "Local IP address of the router, with :port if its web interface does not use port 80. Not a KeenDNS address.",
+        "fr": "Adresse IP locale du routeur, avec :port si son interface web n'utilise pas le port 80. Pas une adresse KeenDNS.",
+        "de": "Lokale IP-Adresse des Routers, mit :Port, wenn seine Weboberfläche nicht Port 80 nutzt. Keine KeenDNS-Adresse.",
+        "es": "Dirección IP local del router, con :puerto si su interfaz web no usa el puerto 80. No una dirección KeenDNS."
+      },
+      "placeholder": {
+        "en": "e.g. 192.168.1.1",
+        "fr": "ex. 192.168.1.1",
+        "de": "z. B. 192.168.1.1",
+        "es": "p. ej. 192.168.1.1"
+      },
       "required": true,
-      "default": 48.8566,
-      "min": -90,
-      "max": 90
+      "default": ""
     },
     {
-      "key": "longitude",
-      "type": "number",
-      "label": { "en": "Longitude", "fr": "Longitude" },
-      "description": {
-        "en": "Longitude used for the demo weather sensor.",
-        "fr": "Longitude utilisée par le capteur météo de démonstration."
+      "key": "username",
+      "type": "string",
+      "label": {
+        "en": "User name",
+        "fr": "Nom d'utilisateur",
+        "de": "Benutzername",
+        "es": "Nombre de usuario"
       },
-      "placeholder": { "en": "e.g. 2.3522", "fr": "ex. 2.3522" },
+      "description": {
+        "en": "A user of Users and access, ideally a dedicated one (see the documentation).",
+        "fr": "Un utilisateur de Utilisateurs et accès, idéalement un utilisateur dédié (voir la documentation).",
+        "de": "Ein Benutzer aus Benutzer und Zugriff, am besten ein eigener (siehe Doku).",
+        "es": "Un usuario de Usuarios y acceso, idealmente uno dedicado (vea la documentación)."
+      },
+      "placeholder": {
+        "en": "e.g. gladys",
+        "fr": "ex. gladys",
+        "de": "z. B. gladys",
+        "es": "p. ej. gladys"
+      },
       "required": true,
-      "default": 2.3522,
-      "min": -180,
-      "max": 180
+      "default": ""
     },
     {
-      "key": "unit",
+      "key": "password",
+      "type": "secret",
+      "label": {
+        "en": "Password",
+        "fr": "Mot de passe",
+        "de": "Passwort",
+        "es": "Contraseña"
+      }
+    },
+    {
+      "key": "poll_interval",
       "type": "select",
-      "label": { "en": "Temperature unit", "fr": "Unité de température" },
-      "required": false,
-      "default": "celsius",
+      "label": {
+        "en": "Refresh interval",
+        "fr": "Intervalle de rafraîchissement",
+        "de": "Aktualisierungsintervall",
+        "es": "Intervalo de actualización"
+      },
+      "description": {
+        "en": "How often the router is read (one request). The rates are averages over this interval.",
+        "fr": "Fréquence de lecture du routeur (une requête). Les débits sont des moyennes sur cet intervalle.",
+        "de": "Wie oft der Router abgefragt wird (eine Anfrage). Die Raten sind Mittelwerte über dieses Intervall.",
+        "es": "Frecuencia de lectura del router (una petición). Las velocidades son promedios sobre este intervalo."
+      },
+      "default": "30",
       "options": [
-        { "value": "celsius", "label": { "en": "Celsius", "fr": "Celsius" } },
-        { "value": "fahrenheit", "label": { "en": "Fahrenheit", "fr": "Fahrenheit" } }
+        {
+          "value": "10",
+          "label": {
+            "en": "10 seconds",
+            "fr": "10 secondes",
+            "de": "10 Sekunden",
+            "es": "10 segundos"
+          }
+        },
+        {
+          "value": "15",
+          "label": {
+            "en": "15 seconds",
+            "fr": "15 secondes",
+            "de": "15 Sekunden",
+            "es": "15 segundos"
+          }
+        },
+        {
+          "value": "30",
+          "label": {
+            "en": "30 seconds",
+            "fr": "30 secondes",
+            "de": "30 Sekunden",
+            "es": "30 segundos"
+          }
+        },
+        {
+          "value": "60",
+          "label": {
+            "en": "1 minute",
+            "fr": "1 minute",
+            "de": "1 Minute",
+            "es": "1 minuto"
+          }
+        }
       ]
     },
     {
-      "key": "poll_frequency",
-      "type": "number",
-      "label": { "en": "Refresh interval (s)", "fr": "Intervalle de rafraîchissement (s)" },
-      "description": {
-        "en": "How often sensors are polled, in seconds (one minute minimum).",
-        "fr": "Fréquence d'interrogation des capteurs, en secondes (une minute minimum)."
+      "key": "presence_section",
+      "type": "section",
+      "label": {
+        "en": "Presence",
+        "fr": "Présence",
+        "de": "Anwesenheit",
+        "es": "Presencia"
       },
-      "required": false,
-      "default": 300,
-      "min": 60,
-      "max": 3600
+      "description": {
+        "en": "Add the devices to follow from the Discovery tab: each one becomes a presence sensor, present while the router sees it online (Wi-Fi, cable or mesh extender).",
+        "fr": "Ajoutez les appareils à suivre depuis l'onglet Découverte : chacun devient un capteur de présence, présent tant que le routeur le voit en ligne (Wi-Fi, câble ou répéteur mesh).",
+        "de": "Füge die zu verfolgenden Geräte im Tab „Entdecken“ hinzu: Jedes wird ein Anwesenheitssensor, anwesend, solange der Router es online sieht (WLAN, Kabel oder Mesh-Verstärker).",
+        "es": "Añada los dispositivos que quiera seguir desde la pestaña Descubrir: cada uno se convierte en un sensor de presencia, presente mientras el router lo ve en línea (Wi-Fi, cable o repetidor mesh)."
+      }
+    },
+    {
+      "key": "away_delay",
+      "type": "number",
+      "label": {
+        "en": "Departure delay (minutes)",
+        "fr": "Délai de départ (minutes)",
+        "de": "Abwesenheitsverzögerung (Minuten)",
+        "es": "Retardo de salida (minutos)"
+      },
+      "description": {
+        "en": "A device no longer seen counts as away only after this delay: a phone asleep leaves the Wi-Fi for a few minutes.",
+        "fr": "Un appareil qui n'est plus vu ne compte comme absent qu'après ce délai : un téléphone en veille quitte le Wi-Fi quelques minutes.",
+        "de": "Ein nicht mehr gesehenes Gerät gilt erst nach dieser Verzögerung als abwesend: Ein schlafendes Handy verlässt das WLAN für ein paar Minuten.",
+        "es": "Un dispositivo que ya no se ve solo cuenta como ausente tras este retardo: un teléfono en reposo deja el Wi-Fi unos minutos."
+      },
+      "default": 5,
+      "min": 0,
+      "max": 60
+    },
+    {
+      "key": "commands_section",
+      "type": "section",
+      "label": {
+        "en": "Commands",
+        "fr": "Commandes",
+        "de": "Befehle",
+        "es": "Órdenes"
+      },
+      "description": {
+        "en": "Read only by default. Commands turn the guest Wi-Fi on or off, block or allow the Internet access of a device and reboot the router, from a scene or a widget. Nothing else is ever changed.",
+        "fr": "Lecture seule par défaut. Les commandes allument ou éteignent le Wi-Fi invité, bloquent ou autorisent l'accès Internet d'un appareil et redémarrent le routeur, depuis une scène ou un widget. Rien d'autre n'est jamais modifié.",
+        "de": "Standardmäßig nur lesen. Befehle schalten das Gäste-WLAN ein oder aus, sperren oder erlauben den Internetzugang eines Geräts und starten den Router neu, aus einer Szene oder einem Widget. Sonst wird nie etwas geändert.",
+        "es": "Solo lectura por defecto. Las órdenes encienden o apagan el Wi-Fi de invitados, bloquean o permiten el acceso a Internet de un dispositivo y reinician el router, desde una escena o un widget. Nunca se cambia nada más."
+      }
+    },
+    {
+      "key": "guest_segment",
+      "type": "string",
+      "label": {
+        "en": "Guest segment",
+        "fr": "Segment invité",
+        "de": "Gästesegment",
+        "es": "Segmento de invitados"
+      },
+      "description": {
+        "en": "Empty: the guest network of the router, found automatically. Else the id of a segment, as \"Test the connection\" lists them.",
+        "fr": "Vide : le réseau invité du routeur, trouvé automatiquement. Sinon l'identifiant d'un segment, tel que « Tester la connexion » les liste.",
+        "de": "Leer: das Gästenetz des Routers, automatisch gefunden. Sonst die ID eines Segments, wie „Verbindung testen“ sie auflistet.",
+        "es": "Vacío: la red de invitados del router, encontrada automáticamente. Si no, el identificador de un segmento, como los lista «Probar la conexión»."
+      },
+      "placeholder": {
+        "en": "e.g. Bridge1",
+        "fr": "ex. Bridge1",
+        "de": "z. B. Bridge1",
+        "es": "p. ej. Bridge1"
+      },
+      "default": ""
+    },
+    {
+      "key": "allow_commands",
+      "type": "boolean",
+      "label": {
+        "en": "Allow commands",
+        "fr": "Autoriser les commandes",
+        "de": "Befehle erlauben",
+        "es": "Permitir órdenes"
+      },
+      "description": {
+        "en": "Lets scenes and widgets use the commands. The Keenetic user must not be read-only.",
+        "fr": "Permet aux scènes et aux widgets d'utiliser les commandes. L'utilisateur Keenetic ne doit pas être en lecture seule.",
+        "de": "Erlaubt Szenen und Widgets, die Befehle zu nutzen. Der Keenetic-Benutzer darf nicht nur lesend sein.",
+        "es": "Permite a escenas y widgets usar las órdenes. El usuario Keenetic no debe ser de solo lectura."
+      },
+      "default": false
+    },
+    {
+      "key": "language",
+      "type": "select",
+      "label": {
+        "en": "Language of the names",
+        "fr": "Langue des noms",
+        "de": "Sprache der Namen",
+        "es": "Idioma de los nombres"
+      },
+      "description": {
+        "en": "Language of the device and feature names, set when a device is added to Gladys.",
+        "fr": "Langue des noms d'appareils et de fonctionnalités, fixés quand un appareil est ajouté à Gladys.",
+        "de": "Sprache der Geräte- und Funktionsnamen, festgelegt, wenn ein Gerät zu Gladys hinzugefügt wird.",
+        "es": "Idioma de los nombres de dispositivos y funciones, fijados cuando se añade un dispositivo a Gladys."
+      },
+      "default": "fr",
+      "options": [
+        {
+          "value": "en",
+          "label": {
+            "en": "English",
+            "fr": "English",
+            "de": "English",
+            "es": "English"
+          }
+        },
+        {
+          "value": "fr",
+          "label": {
+            "en": "Français",
+            "fr": "Français",
+            "de": "Français",
+            "es": "Français"
+          }
+        },
+        {
+          "value": "de",
+          "label": {
+            "en": "Deutsch",
+            "fr": "Deutsch",
+            "de": "Deutsch",
+            "es": "Deutsch"
+          }
+        },
+        {
+          "value": "es",
+          "label": {
+            "en": "Español",
+            "fr": "Español",
+            "de": "Español",
+            "es": "Español"
+          }
+        }
+      ]
     }
   ],
   "actions": [
     {
-      "key": "test_weather",
-      "label": { "en": "Test the weather provider", "fr": "Tester le fournisseur météo" },
-      "timeout_seconds": 30
-    },
-    {
-      "key": "identify",
-      "label": { "en": "Identify a device", "fr": "Identifier un appareil" },
-      "fields": [
-        {
-          "key": "device",
-          "type": "select",
-          "source": "devices",
-          "label": { "en": "Device", "fr": "Appareil" },
-          "required": true
-        }
-      ]
+      "key": "test_connection",
+      "label": {
+        "en": "Test the connection",
+        "fr": "Tester la connexion",
+        "de": "Verbindung testen",
+        "es": "Probar la conexión"
+      },
+      "timeout_seconds": 60
     }
   ],
   "scene_triggers": [
     {
-      "key": "motion_detected",
-      "label": { "en": "Motion detected", "fr": "Mouvement détecté" },
+      "key": "unknown_device_connected",
+      "label": {
+        "en": "Unknown device connected",
+        "fr": "Appareil inconnu connecté",
+        "de": "Unbekanntes Gerät verbunden",
+        "es": "Dispositivo desconocido conectado"
+      },
       "description": {
-        "en": "A demo motion sensor saw a person or an animal move.",
-        "fr": "Un détecteur de démonstration a vu bouger une personne ou un animal."
+        "en": "A MAC address never seen before is online on the network of the router.",
+        "fr": "Une adresse MAC jamais vue est en ligne sur le réseau du routeur.",
+        "de": "Eine nie gesehene MAC-Adresse ist im Netzwerk des Routers online.",
+        "es": "Una dirección MAC nunca vista está en línea en la red del router."
       },
       "fields": [
         {
-          "key": "device",
+          "key": "network",
           "type": "select",
-          "source": "devices",
-          "label": { "en": "Sensor", "fr": "Détecteur" }
+          "label": {
+            "en": "Network",
+            "fr": "Réseau",
+            "de": "Netzwerk",
+            "es": "Red"
+          },
+          "options": [
+            {
+              "value": "home",
+              "label": {
+                "en": "Home network",
+                "fr": "Réseau domestique",
+                "de": "Heimnetz",
+                "es": "Red doméstica"
+              }
+            },
+            {
+              "value": "guest",
+              "label": {
+                "en": "Guest network",
+                "fr": "Réseau invité",
+                "de": "Gästenetz",
+                "es": "Red de invitados"
+              }
+            },
+            {
+              "value": "other",
+              "label": {
+                "en": "Other segment",
+                "fr": "Autre segment",
+                "de": "Anderes Segment",
+                "es": "Otro segmento"
+              }
+            }
+          ]
         },
         {
-          "key": "target",
-          "type": "multi_select",
-          "label": { "en": "What moved", "fr": "Ce qui a bougé" },
+          "key": "connection",
+          "type": "select",
+          "label": {
+            "en": "Connected by",
+            "fr": "Connecté par",
+            "de": "Verbunden über",
+            "es": "Conectado por"
+          },
           "options": [
-            { "value": "person", "label": { "en": "Person", "fr": "Personne" } },
-            { "value": "animal", "label": { "en": "Animal", "fr": "Animal" } }
+            {
+              "value": "wifi",
+              "label": {
+                "en": "Wi-Fi",
+                "fr": "Wi-Fi",
+                "de": "WLAN",
+                "es": "Wi-Fi"
+              }
+            },
+            {
+              "value": "wired",
+              "label": {
+                "en": "Cable",
+                "fr": "Câble",
+                "de": "Kabel",
+                "es": "Cable"
+              }
+            }
           ]
         }
       ],
       "variables": [
         {
-          "key": "target",
+          "key": "mac",
           "type": "string",
-          "label": { "en": "What moved", "fr": "Ce qui a bougé" }
+          "label": {
+            "en": "MAC address",
+            "fr": "Adresse MAC",
+            "de": "MAC-Adresse",
+            "es": "Dirección MAC"
+          }
+        },
+        {
+          "key": "ip",
+          "type": "string",
+          "label": {
+            "en": "IP address",
+            "fr": "Adresse IP",
+            "de": "IP-Adresse",
+            "es": "Dirección IP"
+          }
+        },
+        {
+          "key": "host_name",
+          "type": "string",
+          "label": {
+            "en": "Host name",
+            "fr": "Nom d'hôte",
+            "de": "Hostname",
+            "es": "Nombre de host"
+          }
+        },
+        {
+          "key": "network",
+          "type": "string",
+          "label": {
+            "en": "Network",
+            "fr": "Réseau",
+            "de": "Netzwerk",
+            "es": "Red"
+          }
+        },
+        {
+          "key": "connection",
+          "type": "string",
+          "label": {
+            "en": "Connected by",
+            "fr": "Connecté par",
+            "de": "Verbunden über",
+            "es": "Conectado por"
+          }
+        },
+        {
+          "key": "ssid",
+          "type": "string",
+          "label": {
+            "en": "Wi-Fi network (SSID)",
+            "fr": "Réseau Wi-Fi (SSID)",
+            "de": "WLAN-Netz (SSID)",
+            "es": "Red Wi-Fi (SSID)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "internet_down",
+      "label": {
+        "en": "Internet down",
+        "fr": "Internet coupé",
+        "de": "Internet ausgefallen",
+        "es": "Internet cortado"
+      },
+      "description": {
+        "en": "The router no longer reaches the Internet, through any of its connections.",
+        "fr": "Le routeur n'atteint plus Internet, par aucune de ses connexions.",
+        "de": "Der Router erreicht das Internet über keine seiner Verbindungen mehr.",
+        "es": "El router ya no alcanza Internet, por ninguna de sus conexiones."
+      },
+      "variables": [
+        {
+          "key": "connection",
+          "type": "string",
+          "label": {
+            "en": "Last connection used",
+            "fr": "Dernière connexion utilisée",
+            "de": "Zuletzt genutzte Verbindung",
+            "es": "Última conexión usada"
+          }
+        }
+      ]
+    },
+    {
+      "key": "internet_up",
+      "label": {
+        "en": "Internet restored",
+        "fr": "Internet rétabli",
+        "de": "Internet wiederhergestellt",
+        "es": "Internet restablecido"
+      },
+      "description": {
+        "en": "The router reaches the Internet again, with the length of the outage.",
+        "fr": "Le routeur atteint de nouveau Internet, avec la durée de la coupure.",
+        "de": "Der Router erreicht das Internet wieder, mit der Dauer des Ausfalls.",
+        "es": "El router vuelve a alcanzar Internet, con la duración del corte."
+      },
+      "variables": [
+        {
+          "key": "connection",
+          "type": "string",
+          "label": {
+            "en": "Connection",
+            "fr": "Connexion",
+            "de": "Verbindung",
+            "es": "Conexión"
+          }
+        },
+        {
+          "key": "down_minutes",
+          "type": "number",
+          "label": {
+            "en": "Outage length (minutes)",
+            "fr": "Durée de la coupure (minutes)",
+            "de": "Dauer des Ausfalls (Minuten)",
+            "es": "Duración del corte (minutos)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "backup_connection_active",
+      "label": {
+        "en": "Switched to the backup connection",
+        "fr": "Bascule sur la connexion de secours",
+        "de": "Wechsel auf die Ersatzverbindung",
+        "es": "Cambio a la conexión de respaldo"
+      },
+      "description": {
+        "en": "The main connection failed and the router now reaches the Internet through a backup one (4G, 5G, second ISP).",
+        "fr": "La connexion principale a lâché et le routeur passe par une connexion de secours (4G, 5G, second opérateur).",
+        "de": "Die Hauptverbindung ist ausgefallen, der Router nutzt nun eine Ersatzverbindung (4G, 5G, zweiter Anbieter).",
+        "es": "La conexión principal ha fallado y el router usa ahora una conexión de respaldo (4G, 5G, segundo operador)."
+      },
+      "variables": [
+        {
+          "key": "connection",
+          "type": "string",
+          "label": {
+            "en": "Backup connection",
+            "fr": "Connexion de secours",
+            "de": "Ersatzverbindung",
+            "es": "Conexión de respaldo"
+          }
+        },
+        {
+          "key": "primary",
+          "type": "string",
+          "label": {
+            "en": "Main connection",
+            "fr": "Connexion principale",
+            "de": "Hauptverbindung",
+            "es": "Conexión principal"
+          }
+        }
+      ]
+    },
+    {
+      "key": "primary_connection_restored",
+      "label": {
+        "en": "Back on the main connection",
+        "fr": "Retour sur la connexion principale",
+        "de": "Zurück auf der Hauptverbindung",
+        "es": "Vuelta a la conexión principal"
+      },
+      "description": {
+        "en": "The router uses its main connection again, with the time spent on the backup one.",
+        "fr": "Le routeur utilise de nouveau sa connexion principale, avec le temps passé sur le secours.",
+        "de": "Der Router nutzt wieder seine Hauptverbindung, mit der Zeit auf der Ersatzverbindung.",
+        "es": "El router vuelve a usar su conexión principal, con el tiempo pasado en el respaldo."
+      },
+      "variables": [
+        {
+          "key": "connection",
+          "type": "string",
+          "label": {
+            "en": "Main connection",
+            "fr": "Connexion principale",
+            "de": "Hauptverbindung",
+            "es": "Conexión principal"
+          }
+        },
+        {
+          "key": "backup_minutes",
+          "type": "number",
+          "label": {
+            "en": "Time on the backup (minutes)",
+            "fr": "Temps sur le secours (minutes)",
+            "de": "Zeit auf dem Ersatz (Minuten)",
+            "es": "Tiempo en el respaldo (minutos)"
+          }
         }
       ]
     }
   ],
   "scene_actions": [
     {
-      "key": "identify_device",
-      "label": { "en": "Identify a device", "fr": "Identifier un appareil" },
-      "description": {
-        "en": "Make a device signal itself (the demo light blinks).",
-        "fr": "Fait se signaler un appareil (la lampe de démonstration clignote)."
+      "key": "enable_guest_wifi",
+      "label": {
+        "en": "Turn on the guest Wi-Fi",
+        "fr": "Allumer le Wi-Fi invité",
+        "de": "Gäste-WLAN einschalten",
+        "es": "Encender el Wi-Fi de invitados"
       },
-      "timeout_seconds": 15,
+      "description": {
+        "en": "Turns on the Wi-Fi of the guest network of the router. Needs \"Allow commands\".",
+        "fr": "Allume le Wi-Fi du réseau invité du routeur. Nécessite « Autoriser les commandes ».",
+        "de": "Schaltet das WLAN des Gästenetzes des Routers ein. Braucht „Befehle erlauben“.",
+        "es": "Enciende el Wi-Fi de la red de invitados del router. Requiere «Permitir órdenes»."
+      },
+      "timeout_seconds": 30,
+      "outputs": [
+        {
+          "key": "enabled",
+          "type": "boolean",
+          "label": {
+            "en": "Guest Wi-Fi enabled",
+            "fr": "Wi-Fi invité activé",
+            "de": "Gäste-WLAN aktiviert",
+            "es": "Wi-Fi de invitados activado"
+          }
+        }
+      ]
+    },
+    {
+      "key": "disable_guest_wifi",
+      "label": {
+        "en": "Turn off the guest Wi-Fi",
+        "fr": "Éteindre le Wi-Fi invité",
+        "de": "Gäste-WLAN ausschalten",
+        "es": "Apagar el Wi-Fi de invitados"
+      },
+      "description": {
+        "en": "Turns off the Wi-Fi of the guest network of the router. Needs \"Allow commands\".",
+        "fr": "Éteint le Wi-Fi du réseau invité du routeur. Nécessite « Autoriser les commandes ».",
+        "de": "Schaltet das WLAN des Gästenetzes des Routers aus. Braucht „Befehle erlauben“.",
+        "es": "Apaga el Wi-Fi de la red de invitados del router. Requiere «Permitir órdenes»."
+      },
+      "timeout_seconds": 30,
+      "outputs": [
+        {
+          "key": "enabled",
+          "type": "boolean",
+          "label": {
+            "en": "Guest Wi-Fi enabled",
+            "fr": "Wi-Fi invité activé",
+            "de": "Gäste-WLAN aktiviert",
+            "es": "Wi-Fi de invitados activado"
+          }
+        }
+      ]
+    },
+    {
+      "key": "block_device_internet",
+      "label": {
+        "en": "Block the Internet of a device",
+        "fr": "Bloquer l'Internet d'un appareil",
+        "de": "Internet eines Geräts sperren",
+        "es": "Bloquear Internet de un dispositivo"
+      },
+      "description": {
+        "en": "Blocks the Internet access of a device registered in the router (parental control). Needs \"Allow commands\".",
+        "fr": "Bloque l'accès Internet d'un appareil enregistré dans le routeur (contrôle parental). Nécessite « Autoriser les commandes ».",
+        "de": "Sperrt den Internetzugang eines im Router registrierten Geräts (Kindersicherung). Braucht „Befehle erlauben“.",
+        "es": "Bloquea el acceso a Internet de un dispositivo registrado en el router (control parental). Requiere «Permitir órdenes»."
+      },
+      "timeout_seconds": 30,
       "fields": [
         {
           "key": "device",
           "type": "select",
           "source": "devices",
-          "label": { "en": "Device", "fr": "Appareil" },
-          "required": true
+          "required": true,
+          "label": {
+            "en": "Network device",
+            "fr": "Appareil du réseau",
+            "de": "Netzwerkgerät",
+            "es": "Dispositivo de red"
+          }
         }
       ],
       "outputs": [
         {
-          "key": "signalled",
+          "key": "blocked",
           "type": "boolean",
-          "label": { "en": "Device signalled", "fr": "Appareil signalé" }
+          "label": {
+            "en": "Internet access blocked",
+            "fr": "Accès Internet bloqué",
+            "de": "Internetzugang gesperrt",
+            "es": "Acceso a Internet bloqueado"
+          }
         }
       ]
+    },
+    {
+      "key": "allow_device_internet",
+      "label": {
+        "en": "Allow the Internet of a device",
+        "fr": "Autoriser l'Internet d'un appareil",
+        "de": "Internet eines Geräts erlauben",
+        "es": "Permitir Internet de un dispositivo"
+      },
+      "description": {
+        "en": "Gives back the Internet access of a device blocked before. Needs \"Allow commands\".",
+        "fr": "Rend l'accès Internet d'un appareil bloqué auparavant. Nécessite « Autoriser les commandes ».",
+        "de": "Gibt einem zuvor gesperrten Gerät den Internetzugang zurück. Braucht „Befehle erlauben“.",
+        "es": "Devuelve el acceso a Internet de un dispositivo bloqueado antes. Requiere «Permitir órdenes»."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "required": true,
+          "label": {
+            "en": "Network device",
+            "fr": "Appareil du réseau",
+            "de": "Netzwerkgerät",
+            "es": "Dispositivo de red"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "key": "blocked",
+          "type": "boolean",
+          "label": {
+            "en": "Internet access blocked",
+            "fr": "Accès Internet bloqué",
+            "de": "Internetzugang gesperrt",
+            "es": "Acceso a Internet bloqueado"
+          }
+        }
+      ]
+    },
+    {
+      "key": "reboot_router",
+      "label": {
+        "en": "Reboot the Keenetic router",
+        "fr": "Redémarrer le routeur Keenetic",
+        "de": "Keenetic-Router neu starten",
+        "es": "Reiniciar el router Keenetic"
+      },
+      "description": {
+        "en": "Restarts the router: the network is cut for two to three minutes. Needs \"Allow commands\".",
+        "fr": "Redémarre le routeur : le réseau est coupé deux à trois minutes. Nécessite « Autoriser les commandes ».",
+        "de": "Startet den Router neu: Das Netzwerk ist zwei bis drei Minuten weg. Braucht „Befehle erlauben“.",
+        "es": "Reinicia el router: la red se corta de dos a tres minutos. Requiere «Permitir órdenes»."
+      },
+      "timeout_seconds": 30
     }
   ],
   "widgets": [
     {
-      "key": "demo_status",
-      "label": { "en": "Demo status", "fr": "État de la démo" },
+      "key": "router",
+      "label": {
+        "en": "Keenetic router",
+        "fr": "Routeur Keenetic",
+        "de": "Keenetic-Router",
+        "es": "Router Keenetic"
+      },
       "description": {
-        "en": "Live temperature and plug power, plug connection and observed location.",
-        "fr": "Température et puissance en direct, connexion de la prise, position observée."
+        "en": "CPU, memory, rates, connected devices, Internet, backup link, guest Wi-Fi, uptime.",
+        "fr": "Processeur, mémoire, débits, appareils connectés, Internet, secours, Wi-Fi invité, durée.",
+        "de": "CPU, Speicher, Raten, verbundene Geräte, Internet, Ersatz, Gäste-WLAN, Laufzeit.",
+        "es": "CPU, memoria, velocidades, dispositivos, Internet, respaldo, Wi-Fi invitados, tiempo."
       },
       "icon": "activity",
-      "action_timeout_seconds": 15
+      "action_timeout_seconds": 30
+    },
+    {
+      "key": "presence",
+      "label": {
+        "en": "Devices at home",
+        "fr": "Appareils présents",
+        "de": "Geräte zu Hause",
+        "es": "Dispositivos en casa"
+      },
+      "description": {
+        "en": "The devices followed as presence sensors, present first.",
+        "fr": "Les appareils suivis comme capteurs de présence, présents d'abord.",
+        "de": "Die als Anwesenheitssensoren verfolgten Geräte, anwesende zuerst.",
+        "es": "Los dispositivos seguidos como sensores de presencia, presentes primero."
+      },
+      "icon": "users",
+      "settings": [
+        {
+          "key": "show",
+          "type": "select",
+          "label": {
+            "en": "Show",
+            "fr": "Afficher",
+            "de": "Anzeigen",
+            "es": "Mostrar"
+          },
+          "default": "all",
+          "options": [
+            {
+              "value": "all",
+              "label": {
+                "en": "All followed devices",
+                "fr": "Tous les appareils suivis",
+                "de": "Alle verfolgten Geräte",
+                "es": "Todos los dispositivos seguidos"
+              }
+            },
+            {
+              "value": "present",
+              "label": {
+                "en": "Present devices only",
+                "fr": "Appareils présents seulement",
+                "de": "Nur anwesende Geräte",
+                "es": "Solo dispositivos presentes"
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }
